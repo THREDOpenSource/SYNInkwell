@@ -259,6 +259,7 @@
 				TargetAttributes = {
 					BB7B420F1A4383FB0061FA46 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = SBKBKHJ464;
 					};
 					BB7B42281A4383FB0061FA46 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -481,6 +482,7 @@
 			baseConfigurationReference = 9F2503844345F9336716F6AA /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SYNInkwell/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -493,6 +495,7 @@
 			baseConfigurationReference = 2EF0BDAF3D3698291D8B75C2 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SYNInkwell/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
