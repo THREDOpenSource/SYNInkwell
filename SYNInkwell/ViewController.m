@@ -70,82 +70,90 @@
 }
 
 - (IBAction)sigmaESliderAction:(id)sender {
-    _sigmaEValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaESlider.value];
-    sigmaE = _sigmaESlider.value;
-    [self filterImage];
+//    _sigmaEValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaESlider.value];
+//    sigmaE = _sigmaESlider.value;
+//    [self filterImage];
 }
 
 - (IBAction)sigmaRSliderAction:(id)sender {
-    _sigmaRValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaRSlider.value];
-    sigmaR = _sigmaRSlider.value;
-    [self filterImage];
+//    _sigmaRValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaRSlider.value];
+//    sigmaR = _sigmaRSlider.value;
+//    [self filterImage];
 }
 
 - (IBAction)sigmaSSTSliderAction:(id)sender {
-    _sigmaSSTValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaSSTSlider.value];
-    sigmaSST = _sigmaSSTSlider.value;
-    [self filterImage];
+//    _sigmaSSTValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaSSTSlider.value];
+//    sigmaSST = _sigmaSSTSlider.value;
+//    [self filterImage];
 }
 
 - (IBAction)sigmaMSliderAction:(id)sender {
-    _sigmaMValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaMSlider.value];
-    sigmaM = _sigmaMSlider.value;
-    [self filterImage];
+//    _sigmaMValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaMSlider.value];
+//    sigmaM = _sigmaMSlider.value;
+//    [self filterImage];
 }
 
 - (IBAction)tauSliderAction:(id)sender {
-    _tauValueLabel.text = [NSString stringWithFormat:@"%0.2f", _tauSlider.value];
-    tau =_tauSlider.value;
-    [self filterImage];
+//    _tauValueLabel.text = [NSString stringWithFormat:@"%0.2f", _tauSlider.value];
+//    tau =_tauSlider.value;
+//    [self filterImage];
 }
 
 - (IBAction)phiSliderAction:(id)sender {
-    _phiValueLabel.text = [NSString stringWithFormat:@"%0.2f", _phiSlider.value];
-    phi = _phiSlider.value;
-    [self filterImage];
+//    _phiValueLabel.text = [NSString stringWithFormat:@"%0.2f", _phiSlider.value];
+//    phi = _phiSlider.value;
+//    [self filterImage];
 }
 
 - (IBAction)epsilonSliderAction:(id)sender {
-    _epsilonValueLabel.text = [NSString stringWithFormat:@"%0.2f", _epsilonSlider.value];
-    epsilon = _epsilonSlider.value;
-    [self filterImage];
+//    _epsilonValueLabel.text = [NSString stringWithFormat:@"%0.2f", _epsilonSlider.value];
+//    epsilon = _epsilonSlider.value;
+//    [self filterImage];
 }
 
 
 
 - (IBAction)sigmaESliderContinuousAction:(id)sender {
     _sigmaEValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaESlider.value];
-
+    sigmaE = _sigmaESlider.value;
+    [self filterImage];
 }
 
 - (IBAction)sigmaRSliderContinuousAction:(id)sender {
     _sigmaRValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaRSlider.value];
+    sigmaR = _sigmaRSlider.value;
+    [self filterImage];
 
 }
 
 - (IBAction)sigmaSSTSliderContinuousAction:(id)sender {
     _sigmaSSTValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaSSTSlider.value];
-
+    sigmaSST = _sigmaSSTSlider.value;
+    [self filterImage];
 }
 
 - (IBAction)sigmaMSliderContinuousAction:(id)sender {
     _sigmaMValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaMSlider.value];
-
+    sigmaM = _sigmaMSlider.value;
+    [self filterImage];
 }
 
 - (IBAction)tauSliderContinuousAction:(id)sender {
     _tauValueLabel.text = [NSString stringWithFormat:@"%0.2f", _tauSlider.value];
-
+    tau =_tauSlider.value;
+    [self filterImage];
 }
 
 - (IBAction)phiSliderContinuousAction:(id)sender {
     _phiValueLabel.text = [NSString stringWithFormat:@"%0.2f", _phiSlider.value];
-
+    phi = _phiSlider.value;
+    [self filterImage];
 }
 
 - (IBAction)epsilonSliderContinuousAction:(id)sender {
     _epsilonValueLabel.text = [NSString stringWithFormat:@"%0.2f", _epsilonSlider.value];
-
+    epsilon = _epsilonSlider.value;
+    [self filterImage];
 }
 
 
