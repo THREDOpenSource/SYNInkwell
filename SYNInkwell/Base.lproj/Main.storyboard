@@ -16,6 +16,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UR5-xw-t4F" userLabel="GPU Image View" customClass="GPUImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="292"/>
+                            </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="68F-4F-nfk">
                                 <rect key="frame" x="0.0" y="292" width="320" height="276"/>
                                 <subviews>
@@ -39,7 +42,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="DQA-Fo-n0E">
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="0.0" maxValue="8" translatesAutoresizingMaskIntoConstraints="NO" id="DQA-Fo-n0E">
                                         <rect key="frame" x="156" y="86" width="152" height="31"/>
                                         <connections>
                                             <action selector="sigmaSSTSliderAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="LQE-OU-Z92"/>
@@ -59,7 +62,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.98999999999999999" minValue="0.0" maxValue="1.5" translatesAutoresizingMaskIntoConstraints="NO" id="neI-8K-dcy">
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.98999999999999999" minValue="0.80000000000000004" maxValue="1.2" translatesAutoresizingMaskIntoConstraints="NO" id="neI-8K-dcy">
                                         <rect key="frame" x="156" y="161" width="152" height="31"/>
                                         <connections>
                                             <action selector="tauSliderAction:" destination="vXZ-lx-hvc" eventType="touchUpOutside" id="Osy-dF-f0Y"/>
@@ -73,7 +76,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="-10" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="VRJ-UM-aj1">
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="-5" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="VRJ-UM-aj1">
                                         <rect key="frame" x="156" y="237" width="152" height="31"/>
                                         <connections>
                                             <action selector="epsilonSliderAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="bag-Ye-j7P"/>
@@ -87,7 +90,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="hpv-Uf-bSK">
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="0.0" maxValue="8" translatesAutoresizingMaskIntoConstraints="NO" id="hpv-Uf-bSK">
                                         <rect key="frame" x="156" y="199" width="152" height="31"/>
                                         <connections>
                                             <action selector="phiSliderAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="NSK-3G-rrM"/>
@@ -101,7 +104,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="tKv-CU-U0X">
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="tKv-CU-U0X">
                                         <rect key="frame" x="156" y="124" width="152" height="31"/>
                                         <connections>
                                             <action selector="sigmaMSliderAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="N1l-Vh-4H1"/>
@@ -162,9 +165,6 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="TestImage1.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Ycy-pw-nPf">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="292"/>
-                            </imageView>
                             <view alpha="0.5499999999999996" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ao2-E6-Vge">
                                 <rect key="frame" x="213" y="254" width="99" height="30"/>
                                 <subviews>
@@ -208,7 +208,7 @@
                         <outlet property="epsilonValueLabel" destination="rVx-6y-iqh" id="G3W-vd-hyp"/>
                         <outlet property="phiSlider" destination="hpv-Uf-bSK" id="xIN-DX-nG0"/>
                         <outlet property="phiValueLabel" destination="8BC-aC-1PJ" id="QkH-oE-sKC"/>
-                        <outlet property="photoImageView" destination="Ycy-pw-nPf" id="VZP-17-7cc"/>
+                        <outlet property="photoImageView" destination="UR5-xw-t4F" id="Yu1-Lf-XFz"/>
                         <outlet property="sigmaESlider" destination="fG8-la-T0F" id="9tt-2V-FTH"/>
                         <outlet property="sigmaEValueLabel" destination="6G2-Wp-d2T" id="PTB-yG-y6m"/>
                         <outlet property="sigmaMSlider" destination="tKv-CU-U0X" id="H9p-b6-UIU"/>
@@ -226,9 +226,6 @@
             <point key="canvasLocation" x="221" y="387"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="TestImage1.jpg" width="1024" height="1024"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -12,7 +12,7 @@
 
 @interface ViewController ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
+@property (weak, nonatomic) IBOutlet GPUImageView *photoImageView;
 
 @property (weak, nonatomic) IBOutlet UILabel *sigmaEValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sigmaRValueLabel;
@@ -52,102 +52,115 @@
 @end
 
 @implementation ViewController {
-    UIImage *sourceImage;
-    
-    CGFloat sigmaE;
-    CGFloat sigmaR;
-    CGFloat sigmaSST;
-    CGFloat sigmaM;
-    CGFloat tau;
-    CGFloat phi;
-    CGFloat epsilon;
+    GPUImagePicture *sourceImage;
+    SYNInkwellFilter *inkwell;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    sourceImage = [[UIImage alloc] initWithCGImage:[_photoImageView.image CGImage]];
+    
+    UIImage *image = [UIImage imageNamed:@"TestImage1.jpg"];
+    sourceImage = [GPUImagePicture.alloc initWithImage:image];
+    
+    inkwell = [SYNInkwellFilter.alloc initWithImageSize:image.size
+                                                 sigmaE:1.0
+                                                 sigmaR:1.6
+                                               sigmaSST:2.0
+                                                 sigmaM:3.0
+                                                    tau:0.99
+                                                    phi:2.0
+                                                epsilon:0.0];
+    
+    [sourceImage addTarget:inkwell];
+    [inkwell addTarget:_photoImageView];
+    
     [self resetButtonAction:nil];
 }
 
 - (IBAction)sigmaESliderAction:(id)sender {
     _sigmaEValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaESlider.value];
-    sigmaE = _sigmaESlider.value;
-    [self filterImage];
+    inkwell.sigmaE = _sigmaESlider.value;
+    [sourceImage processImage];
 }
 
 - (IBAction)sigmaRSliderAction:(id)sender {
     _sigmaRValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaRSlider.value];
-    sigmaR = _sigmaRSlider.value;
-    [self filterImage];
+    inkwell.sigmaR = _sigmaRSlider.value;
+    [sourceImage processImage];
 }
 
 - (IBAction)sigmaSSTSliderAction:(id)sender {
-    _sigmaSSTValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaSSTSlider.value];
-    sigmaSST = _sigmaSSTSlider.value;
-    [self filterImage];
+    _sigmaSSTValueLabel.text = [NSString stringWithFormat:@"%d", (int)_sigmaSSTSlider.value];
+    inkwell.sigmaSST = _sigmaSSTSlider.value;
+    [sourceImage processImage];
 }
 
 - (IBAction)sigmaMSliderAction:(id)sender {
     _sigmaMValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaMSlider.value];
-    sigmaM = _sigmaMSlider.value;
-    [self filterImage];
+    inkwell.sigmaM = _sigmaMSlider.value;
+    [sourceImage processImage];
 }
 
 - (IBAction)tauSliderAction:(id)sender {
     _tauValueLabel.text = [NSString stringWithFormat:@"%0.2f", _tauSlider.value];
-    tau =_tauSlider.value;
-    [self filterImage];
+    inkwell.tau =_tauSlider.value;
+    [sourceImage processImage];
 }
 
 - (IBAction)phiSliderAction:(id)sender {
     _phiValueLabel.text = [NSString stringWithFormat:@"%0.2f", _phiSlider.value];
-    phi = _phiSlider.value;
-    [self filterImage];
+    inkwell.phi = _phiSlider.value;
+    [sourceImage processImage];
 }
 
 - (IBAction)epsilonSliderAction:(id)sender {
     _epsilonValueLabel.text = [NSString stringWithFormat:@"%0.2f", _epsilonSlider.value];
-    epsilon = _epsilonSlider.value;
-    [self filterImage];
+    inkwell.epsilon = _epsilonSlider.value;
+    [sourceImage processImage];
 }
-
 
 
 - (IBAction)sigmaESliderContinuousAction:(id)sender {
     _sigmaEValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaESlider.value];
-
+    inkwell.sigmaE = _sigmaESlider.value;
+    [sourceImage processImage];
 }
 
 - (IBAction)sigmaRSliderContinuousAction:(id)sender {
     _sigmaRValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaRSlider.value];
-
+    inkwell.sigmaR = _sigmaRSlider.value;
+    [sourceImage processImage];
 }
 
 - (IBAction)sigmaSSTSliderContinuousAction:(id)sender {
-    _sigmaSSTValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaSSTSlider.value];
-
+    _sigmaSSTValueLabel.text = [NSString stringWithFormat:@"%d", (int)_sigmaSSTSlider.value];
+    inkwell.sigmaSST = _sigmaSSTSlider.value;
+    [sourceImage processImage];
 }
 
 - (IBAction)sigmaMSliderContinuousAction:(id)sender {
     _sigmaMValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaMSlider.value];
-
+    inkwell.sigmaM = _sigmaMSlider.value;
+    [sourceImage processImage];
 }
 
 - (IBAction)tauSliderContinuousAction:(id)sender {
     _tauValueLabel.text = [NSString stringWithFormat:@"%0.2f", _tauSlider.value];
-
+    inkwell.tau = _tauSlider.value;
+    [sourceImage processImage];
 }
 
 - (IBAction)phiSliderContinuousAction:(id)sender {
     _phiValueLabel.text = [NSString stringWithFormat:@"%0.2f", _phiSlider.value];
-
+    inkwell.phi = _phiSlider.value;
+    [sourceImage processImage];
 }
 
 - (IBAction)epsilonSliderContinuousAction:(id)sender {
     _epsilonValueLabel.text = [NSString stringWithFormat:@"%0.2f", _epsilonSlider.value];
-
+    inkwell.epsilon = _epsilonSlider.value;
+    [sourceImage processImage];
 }
-
 
 
 - (IBAction)loadPhotoButtonAction:(id)sender {
@@ -155,60 +168,38 @@
 }
 
 - (IBAction)resetButtonAction:(id)sender {
-    sigmaE = _sigmaESlider.value = 1.0;
-    sigmaR = _sigmaRSlider.value = 1.6;
-    sigmaSST = _sigmaSSTSlider.value = 2.0;
-    sigmaM = _sigmaMSlider.value = 3.0;
-    tau = _tauSlider.value = 0.99;
-    phi = _phiSlider.value = 2.0;
-    epsilon = _epsilonSlider.value = 0.0;
+    inkwell.sigmaE = _sigmaESlider.value = 1.0;
+    inkwell.sigmaR = _sigmaRSlider.value = 1.6;
+    inkwell.sigmaSST = _sigmaSSTSlider.value = 2.0;
+    inkwell.sigmaM = _sigmaMSlider.value = 3.0;
+    inkwell.tau = _tauSlider.value = 0.99;
+    inkwell.phi = _phiSlider.value = 2.0;
+    inkwell.epsilon = _epsilonSlider.value = 0.0;
     
     _sigmaEValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaESlider.value];
     _sigmaRValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaRSlider.value];
-    _sigmaSSTValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaSSTSlider.value];
+    _sigmaSSTValueLabel.text = [NSString stringWithFormat:@"%d", (int)_sigmaSSTSlider.value];
     _sigmaMValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaMSlider.value];
     _tauValueLabel.text = [NSString stringWithFormat:@"%0.2f", _tauSlider.value];
     _phiValueLabel.text = [NSString stringWithFormat:@"%0.2f", _phiSlider.value];
     _epsilonValueLabel.text = [NSString stringWithFormat:@"%0.2f", _epsilonSlider.value];
     
-    [self filterImage];
-}
-
-- (void)filterImage
-{
-    GPUImageGrayscaleFilter *grayscale = GPUImageGrayscaleFilter.alloc.init;
-
-    SYNInkwellFilter *inkwell = [SYNInkwellFilter.alloc
-                             initWithImageSize:sourceImage.size
-                             sigmaE:sigmaE
-                             sigmaR:sigmaR
-                             sigmaSST:sigmaSST
-                             sigmaM:sigmaM
-                             tau:tau
-                             phi:phi
-                             epsilon:epsilon];
-
-    GPUImageGrayscaleFilter *grayscale2 = GPUImageGrayscaleFilter.alloc.init;
-    [inkwell connectWithInput:grayscale output:grayscale2 atTextureLocation:0];
-    
-    GPUImageFilterGroup *group = GPUImageFilterGroup.alloc.init;
-    group.initialFilters = @[ grayscale ];
-    group.terminalFilter = grayscale2;
-
-    UIImage *outputImage = [group imageByFilteringImage:sourceImage];
-    _photoImageView.image = outputImage;
+    [sourceImage processImage];
 }
 
 #pragma mark - Image Picker delegates
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    UIImage *pickedImage = info[UIImagePickerControllerOriginalImage];
-    sourceImage = [[UIImage alloc] initWithCGImage:[pickedImage CGImage]];
-    [self filterImage];
-
+    UIImage *pickedImage = [UIImage.alloc initWithCGImage:[info[UIImagePickerControllerOriginalImage] CGImage]];
+    sourceImage = [GPUImagePicture.alloc initWithImage:pickedImage];
+    [sourceImage addTarget:inkwell];
+    [sourceImage processImage];
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
     // Dismiss the imagePickerController and go back the the Editor view
-    [picker dismissViewControllerAnimated:YES completion:^{
+    /*[picker dismissViewControllerAnimated:YES completion:^{
         
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
             // Request to save the image to camera roll
@@ -228,7 +219,7 @@
             // Camera roll image was selected
             [picker dismissViewControllerAnimated:YES completion:nil];
         }
-    }];
+    }];*/
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker

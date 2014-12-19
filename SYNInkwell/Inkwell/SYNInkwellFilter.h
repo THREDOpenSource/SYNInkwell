@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <GPUImage.h>
 
-@interface SYNInkwellFilter : NSObject
+@interface SYNInkwellFilter : GPUImageFilterGroup
 
 - (id)initWithImageSize:(CGSize)imageSize
                  sigmaE:(CGFloat)sigmaE
@@ -20,9 +20,14 @@
                     phi:(CGFloat)phi
                 epsilon:(CGFloat)epsilon;
 
-- (void)connectWithInput:(GPUImageOutput *)input
-                  output:(id<GPUImageInput>)output
-       atTextureLocation:(NSInteger)location;
+- (void)setImageSize:(CGSize)imageSize;
+- (void)setSigmaE:(CGFloat)sigmaE;
+- (void)setSigmaR:(CGFloat)sigmaR;
+- (void)setSigmaSST:(CGFloat)sigmaSST;
+- (void)setSigmaM:(CGFloat)sigmaM;
+- (void)setTau:(CGFloat)tau;
+- (void)setPhi:(CGFloat)phi;
+- (void)setEpsilon:(CGFloat)epsilon;
 
 + (GPUTextureOptions)twoChannelFloatTexture;
 

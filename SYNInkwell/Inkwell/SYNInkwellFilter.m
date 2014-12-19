@@ -14,6 +14,7 @@
 #import <GPUImage.h>
 
 @implementation SYNInkwellFilter {
+    GPUImageGrayscaleFilter *grayscale;
     SYNGPUImageStructureTensorFilter *st;
     GPUImageGaussianBlurFilter *sst;
     SYNGPUImageEdgeTangentFlowFilter *etf;
@@ -31,46 +32,64 @@
                 epsilon:(CGFloat)epsilon
 {
     if (self = [super init]) {
+        grayscale = GPUImageGrayscaleFilter.new;
+        [self addFilter:grayscale];
+        
         st = SYNGPUImageStructureTensorFilter.new;
-        st.imageSize = imageSize;
+        [self addFilter:st];
         
         sst = GPUImageGaussianBlurFilter.new;
         sst.outputTextureOptions = SYNInkwellFilter.twoChannelFloatTexture;
-        sst.blurRadiusInPixels = sigmaSST;
+        [self addFilter:sst];
         
         etf = SYNGPUImageEdgeTangentFlowFilter.new;
+        [self addFilter:etf];
         
         fdog0 = SYNGPUImageFlowDifferenceOfGaussiansFilter0.new;
-        fdog0.imageSize = imageSize;
-        fdog0.sigmaE = sigmaE;
-        fdog0.sigmaR = sigmaR;
-        fdog0.tau = tau;
+        [self addFilter:fdog0];
         
         fdog1 = SYNGPUImageFlowDifferenceOfGaussiansFilter1.new;
-        fdog1.imageSize = imageSize;
-        fdog1.sigmaM = sigmaM;
-        fdog1.phi = phi;
-        fdog1.epsilon = epsilon;
+        [self addFilter:fdog1];
+        
+        [grayscale addTarget:st];
+        [st addTarget:sst];
+        [sst addTarget:etf];
+        
+        [grayscale addTarget:fdog0 atTextureLocation:0];
+        [etf addTarget:fdog0 atTextureLocation:1];
+        
+        [fdog0 addTarget:fdog1 atTextureLocation:0];
+        [etf addTarget:fdog1 atTextureLocation:1];
+        
+        self.initialFilters = @[ grayscale ];
+        self.terminalFilter = fdog1;
+        
+        self.imageSize = imageSize;
+        self.sigmaE = sigmaE;
+        self.sigmaR = sigmaR;
+        self.sigmaSST = sigmaSST;
+        self.sigmaM = sigmaM;
+        self.tau = tau;
+        self.phi = phi;
+        self.epsilon = epsilon;
     }
     return self;
 }
 
-- (void)connectWithInput:(GPUImageOutput *)input
-                  output:(id<GPUImageInput>)output
-       atTextureLocation:(NSInteger)location
+- (void)setImageSize:(CGSize)imageSize
 {
-    [input addTarget:st];
-    [st addTarget:sst];
-    [sst addTarget:etf];
-    
-    [input addTarget:fdog0 atTextureLocation:0];
-    [etf addTarget:fdog0 atTextureLocation:1];
-    
-    [fdog0 addTarget:fdog1 atTextureLocation:0];
-    [etf addTarget:fdog1 atTextureLocation:1];
-    
-    [fdog1 addTarget:output atTextureLocation:location];
+    st.imageSize = imageSize;
+    fdog0.imageSize = imageSize;
+    fdog1.imageSize = imageSize;
 }
+
+- (void)setSigmaE:(CGFloat)sigmaE { fdog0.sigmaE = sigmaE; }
+- (void)setSigmaR:(CGFloat)sigmaR { fdog0.sigmaR = sigmaR; }
+- (void)setSigmaSST:(CGFloat)sigmaSST { sst.blurRadiusInPixels = sigmaSST; }
+- (void)setSigmaM:(CGFloat)sigmaM { fdog1.sigmaM = sigmaM; }
+- (void)setTau:(CGFloat)tau { fdog0.tau = tau; }
+- (void)setPhi:(CGFloat)phi { fdog1.phi = phi; }
+- (void)setEpsilon:(CGFloat)epsilon { fdog1.epsilon = epsilon; }
 
 + (GPUTextureOptions)twoChannelFloatTexture
 {
