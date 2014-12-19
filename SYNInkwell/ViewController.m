@@ -61,6 +61,7 @@
     
     UIImage *image = [UIImage imageNamed:@"TestImage1.jpg"];
     sourceImage = [GPUImagePicture.alloc initWithImage:image];
+    [sourceImage forceProcessingAtSizeRespectingAspectRatio:_photoImageView.frame.size];
     
     inkwell = [SYNInkwellFilter.alloc initWithImageSize:image.size
                                                  sigmaE:1.0
@@ -75,6 +76,12 @@
     [inkwell addTarget:_photoImageView];
     
     [self resetButtonAction:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [sourceImage processImage];
 }
 
 - (IBAction)sigmaESliderAction:(id)sender {
@@ -191,35 +198,17 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    UIImage *pickedImage = [UIImage.alloc initWithCGImage:[info[UIImagePickerControllerOriginalImage] CGImage]];
+    UIImage *pickedImage = info[UIImagePickerControllerOriginalImage];
+    pickedImage = [self normalizedImage:pickedImage];
+    
+    inkwell.imageSize = pickedImage.size;
+    
     sourceImage = [GPUImagePicture.alloc initWithImage:pickedImage];
+    [sourceImage forceProcessingAtSizeRespectingAspectRatio:_photoImageView.frame.size];
     [sourceImage addTarget:inkwell];
     [sourceImage processImage];
     
     [picker dismissViewControllerAnimated:YES completion:nil];
-    
-    // Dismiss the imagePickerController and go back the the Editor view
-    /*[picker dismissViewControllerAnimated:YES completion:^{
-        
-        if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-            // Request to save the image to camera roll
-            ALAssetsLibrary *library = ALAssetsLibrary.new;
-            [library writeImageToSavedPhotosAlbum:pickedImage.CGImage
-                                      orientation:(ALAssetOrientation)pickedImage.imageOrientation
-                                  completionBlock:^(NSURL *assetURL, NSError *error)
-             {
-             if (error) {
-                 return;
-             }
-             
-             // Photo was taken
-             
-             }];
-        } else {
-            // Camera roll image was selected
-            [picker dismissViewControllerAnimated:YES completion:nil];
-        }
-    }];*/
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -252,5 +241,20 @@
     [self presentViewController:imagePickerController animated:YES completion:nil];
 }
 
+#pragma mark - Helpers
+
+- (UIImage *)normalizedImage:(UIImage *)image
+{
+    CGFloat oldWidth = image.size.width;
+    CGFloat oldHeight = image.size.height;
+    CGFloat scaleFactor = 1024.0 / MAX(oldWidth, oldHeight);
+    CGSize newSize = CGSizeMake(oldWidth * scaleFactor, oldHeight * scaleFactor);
+    
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, image.scale);
+    [image drawInRect:(CGRect){ 0, 0, newSize }];
+    UIImage *normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return normalizedImage;
+}
 
 @end
