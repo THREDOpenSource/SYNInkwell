@@ -23,13 +23,6 @@
 }
 
 - (id)initWithImageSize:(CGSize)imageSize
-                 sigmaE:(CGFloat)sigmaE
-                 sigmaR:(CGFloat)sigmaR
-               sigmaSST:(CGFloat)sigmaSST
-                 sigmaM:(CGFloat)sigmaM
-                    tau:(CGFloat)tau
-                    phi:(CGFloat)phi
-                epsilon:(CGFloat)epsilon
 {
     if (self = [super init]) {
         grayscale = GPUImageGrayscaleFilter.new;
@@ -65,13 +58,13 @@
         self.terminalFilter = fdog1;
         
         self.imageSize = imageSize;
-        self.sigmaE = sigmaE;
-        self.sigmaR = sigmaR;
-        self.sigmaSST = sigmaSST;
-        self.sigmaM = sigmaM;
-        self.tau = tau;
-        self.phi = phi;
-        self.epsilon = epsilon;
+        self.sigmaE = 1.39;
+        self.sigmaR = 2.87;
+        self.sigmaSST = 2.5;
+        self.sigmaM = 3.0;
+        self.p = 39.0;
+        self.phi = 0.17;
+        self.epsilon = 0.15;
     }
     return self;
 }
@@ -87,7 +80,7 @@
 - (void)setSigmaR:(CGFloat)sigmaR { fdog0.sigmaR = sigmaR; }
 - (void)setSigmaSST:(CGFloat)sigmaSST { sst.blurRadiusInPixels = sigmaSST; }
 - (void)setSigmaM:(CGFloat)sigmaM { fdog1.sigmaM = sigmaM; }
-- (void)setTau:(CGFloat)tau { fdog0.tau = tau; }
+- (void)setP:(CGFloat)p { fdog0.p = p; }
 - (void)setPhi:(CGFloat)phi { fdog1.phi = phi; }
 - (void)setEpsilon:(CGFloat)epsilon { fdog1.epsilon = epsilon; }
 

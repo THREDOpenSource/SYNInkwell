@@ -17,6 +17,6 @@
 
 - (void)setSigmaR:(CGFloat)sigmaR;
 
-- (void)setTau:(CGFloat)tau;
+- (void)setP:(CGFloat)p;
 
 @end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4D39E80FD7827DE26925CD57 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 369E6CC4D254F0E97A68BD76 /* libPods.a */; };
+		9F5C9E031A44C22900FF4800 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F5C9E021A44C22900FF4800 /* ImageIO.framework */; };
 		BB7B42161A4383FB0061FA46 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B42151A4383FB0061FA46 /* main.m */; };
 		BB7B42191A4383FB0061FA46 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B42181A4383FB0061FA46 /* AppDelegate.m */; };
 		BB7B421C1A4383FB0061FA46 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B421B1A4383FB0061FA46 /* ViewController.m */; };
@@ -44,6 +45,7 @@
 		2EF0BDAF3D3698291D8B75C2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		369E6CC4D254F0E97A68BD76 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F2503844345F9336716F6AA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		9F5C9E021A44C22900FF4800 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		BB7B42101A4383FB0061FA46 /* SYNInkwell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SYNInkwell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB7B42141A4383FB0061FA46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB7B42151A4383FB0061FA46 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F5C9E031A44C22900FF4800 /* ImageIO.framework in Frameworks */,
 				4D39E80FD7827DE26925CD57 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -99,6 +102,7 @@
 		8BC396128903DE114726D89E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9F5C9E021A44C22900FF4800 /* ImageIO.framework */,
 				369E6CC4D254F0E97A68BD76 /* libPods.a */,
 			);
 			name = Frameworks;

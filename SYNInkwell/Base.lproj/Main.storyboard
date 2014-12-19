@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YAh-yE-Zi9" userLabel="GPU Image View" customClass="GPUImageView">
-                                <rect key="frame" x="16" y="0.0" width="568" height="324"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="324"/>
                                 <subviews>
                                     <view alpha="0.5499999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ao2-E6-Vge" userLabel="Load Photo Wrapper">
-                                        <rect key="frame" x="474" y="283" width="86" height="33"/>
+                                        <rect key="frame" x="506" y="283" width="86" height="33"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUy-fL-ZvT">
                                                 <rect key="frame" x="0.0" y="0.0" width="86" height="33"/>
@@ -123,7 +123,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tau" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nj3-fd-Kr7">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="P" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nj3-fd-Kr7">
                                         <rect key="frame" x="8" y="165" width="68" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="Web-Km-bJM"/>
@@ -216,7 +216,7 @@
                                             <action selector="sigmaSSTSliderContinuousAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="JVc-cm-JOj"/>
                                         </connections>
                                     </slider>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.98999999999999999" minValue="0.80000000000000004" maxValue="1.2" translatesAutoresizingMaskIntoConstraints="NO" id="neI-8K-dcy">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.98999999999999999" minValue="0.0" maxValue="120" translatesAutoresizingMaskIntoConstraints="NO" id="neI-8K-dcy">
                                         <rect key="frame" x="124" y="161" width="432" height="31"/>
                                         <connections>
                                             <action selector="tauSliderAction:" destination="vXZ-lx-hvc" eventType="touchUpOutside" id="Osy-dF-f0Y"/>
@@ -224,7 +224,7 @@
                                             <action selector="tauSliderContinuousAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="7jT-n8-DkN"/>
                                         </connections>
                                     </slider>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="-5" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="VRJ-UM-aj1">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="-5" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="VRJ-UM-aj1">
                                         <rect key="frame" x="124" y="237" width="432" height="31"/>
                                         <connections>
                                             <action selector="epsilonSliderAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="bag-Ye-j7P"/>
@@ -232,7 +232,7 @@
                                             <action selector="epsilonSliderContinuousAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="fqu-Qf-6W3"/>
                                         </connections>
                                     </slider>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="0.0" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="hpv-Uf-bSK">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="0.0" maxValue="12" translatesAutoresizingMaskIntoConstraints="NO" id="hpv-Uf-bSK">
                                         <rect key="frame" x="124" y="199" width="432" height="31"/>
                                         <connections>
                                             <action selector="phiSliderAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="NSK-3G-rrM"/>
@@ -240,7 +240,7 @@
                                             <action selector="phiSliderContinuousAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="EGi-b0-09K"/>
                                         </connections>
                                     </slider>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="0.0" maxValue="8" translatesAutoresizingMaskIntoConstraints="NO" id="tKv-CU-U0X">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="0.0" maxValue="15" translatesAutoresizingMaskIntoConstraints="NO" id="tKv-CU-U0X">
                                         <rect key="frame" x="124" y="124" width="432" height="31"/>
                                         <connections>
                                             <action selector="sigmaMSliderAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="N1l-Vh-4H1"/>
@@ -329,9 +329,9 @@
                         <constraints>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="68F-4F-nfk" secondAttribute="bottom" id="5Ft-3y-MX1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="68F-4F-nfk" secondAttribute="trailing" id="EyF-1w-50l"/>
-                            <constraint firstItem="YAh-yE-Zi9" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="IwW-gn-wj5"/>
+                            <constraint firstItem="YAh-yE-Zi9" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="IwW-gn-wj5"/>
                             <constraint firstItem="68F-4F-nfk" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="LMq-XM-tx5"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="YAh-yE-Zi9" secondAttribute="trailing" id="OAP-uj-jXt"/>
+                            <constraint firstAttribute="trailing" secondItem="YAh-yE-Zi9" secondAttribute="trailing" id="OAP-uj-jXt"/>
                             <constraint firstItem="YAh-yE-Zi9" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="bom-0a-CP4"/>
                             <constraint firstItem="68F-4F-nfk" firstAttribute="top" secondItem="YAh-yE-Zi9" secondAttribute="bottom" id="ois-3t-O9z"/>
                         </constraints>

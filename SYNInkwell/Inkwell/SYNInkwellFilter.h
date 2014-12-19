@@ -11,21 +11,14 @@
 
 @interface SYNInkwellFilter : GPUImageFilterGroup
 
-- (id)initWithImageSize:(CGSize)imageSize
-                 sigmaE:(CGFloat)sigmaE
-                 sigmaR:(CGFloat)sigmaR
-               sigmaSST:(CGFloat)sigmaSST
-                 sigmaM:(CGFloat)sigmaM
-                    tau:(CGFloat)tau
-                    phi:(CGFloat)phi
-                epsilon:(CGFloat)epsilon;
+- (id)initWithImageSize:(CGSize)imageSize;
 
 - (void)setImageSize:(CGSize)imageSize;
 - (void)setSigmaE:(CGFloat)sigmaE;
 - (void)setSigmaR:(CGFloat)sigmaR;
 - (void)setSigmaSST:(CGFloat)sigmaSST;
 - (void)setSigmaM:(CGFloat)sigmaM;
-- (void)setTau:(CGFloat)tau;
+- (void)setP:(CGFloat)p;
 - (void)setPhi:(CGFloat)phi;
 - (void)setEpsilon:(CGFloat)epsilon;
 

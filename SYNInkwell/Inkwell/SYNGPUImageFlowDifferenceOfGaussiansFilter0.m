@@ -10,9 +10,9 @@
 #import "SYNInkwellFilter.h"
 
 @implementation SYNGPUImageFlowDifferenceOfGaussiansFilter0 {
-    GLuint _imageSizeUniform, _sigmaEUniform, _sigmaRUniform, _tauUniform;
+    GLuint _imageSizeUniform, _sigmaEUniform, _sigmaRUniform, _pUniform;
     CGSize _imageSize;
-    CGFloat _sigmaE, _sigmaR, _tau;
+    CGFloat _sigmaE, _sigmaR, _p;
 }
 
 NSString *const kSYNGPUImageFlowDifferenceOfGaussians0FragmentShader = SHADER_STRING(
@@ -26,7 +26,7 @@ uniform sampler2D inputImageTexture2; // Edge Tangent Flow
 uniform vec2 imageSize;
 uniform float sigma_e;
 uniform float sigma_r;
-uniform float tau;
+uniform float p;
 
 void main()
 {
@@ -58,8 +58,8 @@ void main()
     }
     sum /= norm;
     
-    float diff = sum.x - tau * sum.y;
-    gl_FragColor = vec4(vec3(diff), 1.0);
+    float H = (1.0 + p) * sum.x - p * sum.y;
+    gl_FragColor = vec4(vec3(H), 1.0);
 }
 );
 
@@ -71,11 +71,11 @@ void main()
         _imageSizeUniform = [filterProgram uniformIndex:@"imageSize"];
         _sigmaEUniform = [filterProgram uniformIndex:@"sigma_e"];
         _sigmaRUniform = [filterProgram uniformIndex:@"sigma_r"];
-        _tauUniform = [filterProgram uniformIndex:@"tau"];
+        _pUniform = [filterProgram uniformIndex:@"p"];
         self.imageSize = CGSizeMake(640.0, 800.0);
         self.sigmaE = 1.0;
         self.sigmaR = 1.6;
-        self.tau = 0.99;
+        self.p = 20.0;
     }
     
     return self;
@@ -99,10 +99,10 @@ void main()
     [self setFloat:sigmaR forUniform:_sigmaRUniform program:filterProgram];
 }
 
-- (void)setTau:(CGFloat)tau
+- (void)setP:(CGFloat)p
 {
-    _tau = tau;
-    [self setFloat:tau forUniform:_tauUniform program:filterProgram];
+    _p = p;
+    [self setFloat:p forUniform:_pUniform program:filterProgram];
 }
 
 @end

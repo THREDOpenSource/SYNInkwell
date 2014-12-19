@@ -9,6 +9,11 @@
 #import "ViewController.h"
 #import "SYNInkwellFilter.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <ImageIO/CGImageProperties.h>
+#import <ImageIO/ImageIO.h>
+#import <CoreImage/CoreImage.h>
+#import <CoreImage/CIImage.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface ViewController ()
 
@@ -60,17 +65,11 @@
     [super viewDidLoad];
     
     UIImage *image = [UIImage imageNamed:@"TestImage1.jpg"];
+    image = [self normalizedImage:image];
     sourceImage = [GPUImagePicture.alloc initWithImage:image];
     [sourceImage forceProcessingAtSizeRespectingAspectRatio:_photoImageView.frame.size];
     
-    inkwell = [SYNInkwellFilter.alloc initWithImageSize:image.size
-                                                 sigmaE:1.0
-                                                 sigmaR:1.6
-                                               sigmaSST:2.0
-                                                 sigmaM:3.0
-                                                    tau:0.99
-                                                    phi:2.0
-                                                epsilon:0.0];
+    inkwell = [SYNInkwellFilter.alloc initWithImageSize:image.size];
     
     [sourceImage addTarget:inkwell];
     [inkwell addTarget:_photoImageView];
@@ -82,6 +81,11 @@
 {
     [super viewDidAppear:animated];
     [sourceImage processImage];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
@@ -113,9 +117,10 @@
     [sourceImage processImage];
 }
 
+// NOTE: Tau is actually P now
 - (IBAction)tauSliderAction:(id)sender {
     _tauValueLabel.text = [NSString stringWithFormat:@"%0.2f", _tauSlider.value];
-    inkwell.tau =_tauSlider.value;
+    inkwell.p =_tauSlider.value;
     [sourceImage processImage];
 }
 
@@ -156,9 +161,10 @@
     [sourceImage processImage];
 }
 
+// NOTE: Tau is actually P now
 - (IBAction)tauSliderContinuousAction:(id)sender {
     _tauValueLabel.text = [NSString stringWithFormat:@"%0.2f", _tauSlider.value];
-    inkwell.tau = _tauSlider.value;
+    inkwell.p = _tauSlider.value;
     [sourceImage processImage];
 }
 
@@ -180,13 +186,13 @@
 }
 
 - (IBAction)resetButtonAction:(id)sender {
-    inkwell.sigmaE = _sigmaESlider.value = 1.0;
-    inkwell.sigmaR = _sigmaRSlider.value = 1.6;
-    inkwell.sigmaSST = _sigmaSSTSlider.value = 2.0;
-    inkwell.sigmaM = _sigmaMSlider.value = 3.0;
-    inkwell.tau = _tauSlider.value = 0.99;
-    inkwell.phi = _phiSlider.value = 2.0;
-    inkwell.epsilon = _epsilonSlider.value = 0.0;
+    inkwell.sigmaE = _sigmaESlider.value = 1.39;
+    inkwell.sigmaR = _sigmaRSlider.value = 2.87;
+    inkwell.sigmaSST = _sigmaSSTSlider.value = 2.5;
+    inkwell.sigmaM = _sigmaMSlider.value = 3.36;
+    inkwell.p = _tauSlider.value = 39.0;
+    inkwell.phi = _phiSlider.value = 0.17;
+    inkwell.epsilon = _epsilonSlider.value = 0.15;
     
     _sigmaEValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaESlider.value];
     _sigmaRValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaRSlider.value];
@@ -250,6 +256,8 @@
 
 - (UIImage *)normalizedImage:(UIImage *)image
 {
+    // Resize to clamp max height/width at 1024 (preserving aspect ratio, and
+    // rotate if needed
     CGFloat oldWidth = image.size.width;
     CGFloat oldHeight = image.size.height;
     CGFloat scaleFactor = 1024.0 / MAX(oldWidth, oldHeight);
@@ -259,6 +267,17 @@
     [image drawInRect:(CGRect){ 0, 0, newSize }];
     UIImage *normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    
+    //
+    CIImage* ciImage = [CIImage.alloc initWithCGImage:normalizedImage.CGImage];
+    NSArray *adjustments = [ciImage autoAdjustmentFiltersWithOptions:@{}];
+    for (CIFilter *filter in adjustments) {
+        [filter setValue:ciImage forKey:kCIInputImageKey];
+        ciImage = filter.outputImage;
+    }
+    
+    CIContext *context = [CIContext contextWithOptions:nil];
+    normalizedImage = [UIImage imageWithCGImage:[context createCGImage:ciImage fromRect:ciImage.extent]];
     return normalizedImage;
 }
 
