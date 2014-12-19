@@ -84,6 +84,11 @@
     [sourceImage processImage];
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [sourceImage processImage];
+}
+
 - (IBAction)sigmaESliderAction:(id)sender {
     _sigmaEValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaESlider.value];
     inkwell.sigmaE = _sigmaESlider.value;
