@@ -21,6 +21,13 @@
 		BB90487F1A43879000B7625A /* SYNGPUImageFlowDifferenceOfGaussiansFilter1.m in Sources */ = {isa = PBXBuildFile; fileRef = BB9048781A43879000B7625A /* SYNGPUImageFlowDifferenceOfGaussiansFilter1.m */; };
 		BB9048801A43879000B7625A /* SYNGPUImageStructureTensorFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = BB90487A1A43879000B7625A /* SYNGPUImageStructureTensorFilter.m */; };
 		BB9048811A43879000B7625A /* SYNInkwellFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = BB90487C1A43879000B7625A /* SYNInkwellFilter.m */; };
+		BB9FB98C1A43B444005DDA71 /* InkwellIcon60.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9FB98A1A43B444005DDA71 /* InkwellIcon60.png */; };
+		BB9FB98D1A43B444005DDA71 /* InkwellIcon120.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9FB98B1A43B444005DDA71 /* InkwellIcon120.png */; };
+		BB9FB98F1A43B4A2005DDA71 /* InkwellIcon180.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9FB98E1A43B4A2005DDA71 /* InkwellIcon180.png */; };
+		BB9FB9941A43B547005DDA71 /* InkwellIcon29.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9FB9901A43B547005DDA71 /* InkwellIcon29.png */; };
+		BB9FB9951A43B547005DDA71 /* InkwellIcon40.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9FB9911A43B547005DDA71 /* InkwellIcon40.png */; };
+		BB9FB9961A43B547005DDA71 /* InkwellIcon58.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9FB9921A43B547005DDA71 /* InkwellIcon58.png */; };
+		BB9FB9971A43B547005DDA71 /* InkwellIcon80.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9FB9931A43B547005DDA71 /* InkwellIcon80.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +68,13 @@
 		BB90487A1A43879000B7625A /* SYNGPUImageStructureTensorFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYNGPUImageStructureTensorFilter.m; sourceTree = "<group>"; };
 		BB90487B1A43879000B7625A /* SYNInkwellFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYNInkwellFilter.h; sourceTree = "<group>"; };
 		BB90487C1A43879000B7625A /* SYNInkwellFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYNInkwellFilter.m; sourceTree = "<group>"; };
+		BB9FB98A1A43B444005DDA71 /* InkwellIcon60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InkwellIcon60.png; sourceTree = "<group>"; };
+		BB9FB98B1A43B444005DDA71 /* InkwellIcon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InkwellIcon120.png; sourceTree = "<group>"; };
+		BB9FB98E1A43B4A2005DDA71 /* InkwellIcon180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InkwellIcon180.png; sourceTree = "<group>"; };
+		BB9FB9901A43B547005DDA71 /* InkwellIcon29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InkwellIcon29.png; sourceTree = "<group>"; };
+		BB9FB9911A43B547005DDA71 /* InkwellIcon40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InkwellIcon40.png; sourceTree = "<group>"; };
+		BB9FB9921A43B547005DDA71 /* InkwellIcon58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InkwellIcon58.png; sourceTree = "<group>"; };
+		BB9FB9931A43B547005DDA71 /* InkwellIcon80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InkwellIcon80.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +187,13 @@
 		BB9048821A4387D800B7625A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BB9FB9901A43B547005DDA71 /* InkwellIcon29.png */,
+				BB9FB9911A43B547005DDA71 /* InkwellIcon40.png */,
+				BB9FB9921A43B547005DDA71 /* InkwellIcon58.png */,
+				BB9FB9931A43B547005DDA71 /* InkwellIcon80.png */,
+				BB9FB98E1A43B4A2005DDA71 /* InkwellIcon180.png */,
+				BB9FB98A1A43B444005DDA71 /* InkwellIcon60.png */,
+				BB9FB98B1A43B444005DDA71 /* InkwellIcon120.png */,
 				BB7EFC9B1A438EA200F3226B /* TestImage1.jpg */,
 			);
 			path = Resources;
@@ -269,10 +290,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB9FB9951A43B547005DDA71 /* InkwellIcon40.png in Resources */,
+				BB9FB9971A43B547005DDA71 /* InkwellIcon80.png in Resources */,
+				BB9FB98C1A43B444005DDA71 /* InkwellIcon60.png in Resources */,
 				BB7B421F1A4383FB0061FA46 /* Main.storyboard in Resources */,
 				BB7EFC9C1A438EA200F3226B /* TestImage1.jpg in Resources */,
+				BB9FB9961A43B547005DDA71 /* InkwellIcon58.png in Resources */,
 				BB7B42241A4383FB0061FA46 /* LaunchScreen.xib in Resources */,
 				BB7B42211A4383FB0061FA46 /* Images.xcassets in Resources */,
+				BB9FB98F1A43B4A2005DDA71 /* InkwellIcon180.png in Resources */,
+				BB9FB9941A43B547005DDA71 /* InkwellIcon29.png in Resources */,
+				BB9FB98D1A43B444005DDA71 /* InkwellIcon120.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
