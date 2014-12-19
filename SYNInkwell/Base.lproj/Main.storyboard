@@ -153,7 +153,7 @@
                                             <action selector="sigmaRSliderContinuousAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="AED-Bd-Aos"/>
                                         </connections>
                                     </slider>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="DQA-Fo-n0E">
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="0.0" maxValue="8" translatesAutoresizingMaskIntoConstraints="NO" id="DQA-Fo-n0E">
                                         <rect key="frame" x="124" y="86" width="184" height="31"/>
                                         <connections>
                                             <action selector="sigmaSSTSliderAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="LQE-OU-Z92"/>
@@ -161,7 +161,7 @@
                                             <action selector="sigmaSSTSliderContinuousAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="JVc-cm-JOj"/>
                                         </connections>
                                     </slider>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.98999999999999999" minValue="0.0" maxValue="1.5" translatesAutoresizingMaskIntoConstraints="NO" id="neI-8K-dcy">
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.98999999999999999" minValue="0.80000000000000004" maxValue="1.2" translatesAutoresizingMaskIntoConstraints="NO" id="neI-8K-dcy">
                                         <rect key="frame" x="124" y="161" width="184" height="31"/>
                                         <connections>
                                             <action selector="tauSliderAction:" destination="vXZ-lx-hvc" eventType="touchUpOutside" id="Osy-dF-f0Y"/>
@@ -169,7 +169,7 @@
                                             <action selector="tauSliderContinuousAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="7jT-n8-DkN"/>
                                         </connections>
                                     </slider>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="-10" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="VRJ-UM-aj1">
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="-5" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="VRJ-UM-aj1">
                                         <rect key="frame" x="124" y="237" width="184" height="31"/>
                                         <connections>
                                             <action selector="epsilonSliderAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="bag-Ye-j7P"/>
@@ -177,7 +177,7 @@
                                             <action selector="epsilonSliderContinuousAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="fqu-Qf-6W3"/>
                                         </connections>
                                     </slider>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="hpv-Uf-bSK">
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="0.0" maxValue="8" translatesAutoresizingMaskIntoConstraints="NO" id="hpv-Uf-bSK">
                                         <rect key="frame" x="124" y="199" width="184" height="31"/>
                                         <connections>
                                             <action selector="phiSliderAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="NSK-3G-rrM"/>
@@ -185,7 +185,7 @@
                                             <action selector="phiSliderContinuousAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="EGi-b0-09K"/>
                                         </connections>
                                     </slider>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="tKv-CU-U0X">
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="0.0" maxValue="8" translatesAutoresizingMaskIntoConstraints="NO" id="tKv-CU-U0X">
                                         <rect key="frame" x="124" y="124" width="184" height="31"/>
                                         <connections>
                                             <action selector="sigmaMSliderAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="N1l-Vh-4H1"/>
