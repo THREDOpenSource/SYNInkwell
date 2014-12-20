@@ -30,14 +30,6 @@
 @property (weak, nonatomic) IBOutlet UISlider *phiSlider;
 @property (weak, nonatomic) IBOutlet UISlider *epsilonSlider;
 
-- (IBAction)sigmaESliderAction:(id)sender;
-- (IBAction)sigmaRSliderAction:(id)sender;
-- (IBAction)sigmaSSTSliderAction:(id)sender;
-- (IBAction)sigmaMSliderAction:(id)sender;
-- (IBAction)tauSliderAction:(id)sender;
-- (IBAction)phiSliderAction:(id)sender;
-- (IBAction)epsilonSliderAction:(id)sender;
-
 - (IBAction)sigmaESliderContinuousAction:(id)sender;
 - (IBAction)sigmaRSliderContinuousAction:(id)sender;
 - (IBAction)sigmaSSTSliderContinuousAction:(id)sender;
@@ -53,6 +45,7 @@
 
 @implementation ViewController {
     GPUImagePicture *sourceImage;
+    GPUImageHistogramEqualizationFilter *equalization;
     SYNInkwellFilter *inkwell;
 }
 
@@ -64,9 +57,16 @@
     sourceImage = [GPUImagePicture.alloc initWithImage:image];
     [sourceImage forceProcessingAtSizeRespectingAspectRatio:_photoImageView.frame.size];
     
+    GPUImageSaturationFilter *saturation = GPUImageSaturationFilter.new;
+    saturation.saturation = 1.2;
+    
+    equalization = [GPUImageHistogramEqualizationFilter.alloc initWithHistogramType:kGPUImageHistogramLuminance];
+    
     inkwell = [SYNInkwellFilter.alloc initWithImageSize:image.size];
     
-    [sourceImage addTarget:inkwell];
+    [sourceImage addTarget:saturation];
+    [saturation addTarget:equalization];
+    [equalization addTarget:inkwell];
     [inkwell addTarget:_photoImageView];
     
     [self resetButtonAction:nil];
@@ -85,49 +85,6 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    [sourceImage processImage];
-}
-
-- (IBAction)sigmaESliderAction:(id)sender {
-    _sigmaEValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaESlider.value];
-    inkwell.sigmaE = _sigmaESlider.value;
-    [sourceImage processImage];
-}
-
-- (IBAction)sigmaRSliderAction:(id)sender {
-    _sigmaRValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaRSlider.value];
-    inkwell.sigmaR = _sigmaRSlider.value;
-    [sourceImage processImage];
-}
-
-- (IBAction)sigmaSSTSliderAction:(id)sender {
-    _sigmaSSTValueLabel.text = [NSString stringWithFormat:@"%d", (int)_sigmaSSTSlider.value];
-    inkwell.sigmaSST = _sigmaSSTSlider.value;
-    [sourceImage processImage];
-}
-
-- (IBAction)sigmaMSliderAction:(id)sender {
-    _sigmaMValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaMSlider.value];
-    inkwell.sigmaM = _sigmaMSlider.value;
-    [sourceImage processImage];
-}
-
-// NOTE: Tau is actually P now
-- (IBAction)tauSliderAction:(id)sender {
-    _tauValueLabel.text = [NSString stringWithFormat:@"%0.2f", _tauSlider.value];
-    inkwell.p =_tauSlider.value;
-    [sourceImage processImage];
-}
-
-- (IBAction)phiSliderAction:(id)sender {
-    _phiValueLabel.text = [NSString stringWithFormat:@"%0.2f", _phiSlider.value];
-    inkwell.phi = _phiSlider.value;
-    [sourceImage processImage];
-}
-
-- (IBAction)epsilonSliderAction:(id)sender {
-    _epsilonValueLabel.text = [NSString stringWithFormat:@"%0.2f", _epsilonSlider.value];
-    inkwell.epsilon = _epsilonSlider.value;
     [sourceImage processImage];
 }
 

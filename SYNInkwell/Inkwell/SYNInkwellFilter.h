@@ -21,6 +21,11 @@
 - (void)setP:(CGFloat)p;
 - (void)setPhi:(CGFloat)phi;
 - (void)setEpsilon:(CGFloat)epsilon;
+- (void)setSigmaBFD:(CGFloat)sigmaBFD;
+- (void)setSigmaBFR:(CGFloat)sigmaBFR;
+- (void)setBfeNumPasses:(int)numPasses;
+- (void)setBfaNumPasses:(int)numPasses;
+
 
 + (GPUTextureOptions)twoChannelFloatTexture;
 

@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4D39E80FD7827DE26925CD57 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 369E6CC4D254F0E97A68BD76 /* libPods.a */; };
-		9F5C9E031A44C22900FF4800 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F5C9E021A44C22900FF4800 /* ImageIO.framework */; };
+		9F5C9E061A44D45400FF4800 /* SYNGPUImageFlowBilateralFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5C9E051A44D45400FF4800 /* SYNGPUImageFlowBilateralFilter.m */; };
+		9F5C9E091A44DAB200FF4800 /* SYNGPUImageRGBToLABFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5C9E081A44DAB200FF4800 /* SYNGPUImageRGBToLABFilter.m */; };
+		9F5C9E0C1A44E0DC00FF4800 /* SYNGPUImageLABToRGBFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5C9E0B1A44E0DC00FF4800 /* SYNGPUImageLABToRGBFilter.m */; };
 		BB7B42161A4383FB0061FA46 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B42151A4383FB0061FA46 /* main.m */; };
 		BB7B42191A4383FB0061FA46 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B42181A4383FB0061FA46 /* AppDelegate.m */; };
 		BB7B421C1A4383FB0061FA46 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B421B1A4383FB0061FA46 /* ViewController.m */; };
@@ -46,6 +48,12 @@
 		369E6CC4D254F0E97A68BD76 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F2503844345F9336716F6AA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9F5C9E021A44C22900FF4800 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		9F5C9E041A44D45400FF4800 /* SYNGPUImageFlowBilateralFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYNGPUImageFlowBilateralFilter.h; sourceTree = "<group>"; };
+		9F5C9E051A44D45400FF4800 /* SYNGPUImageFlowBilateralFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYNGPUImageFlowBilateralFilter.m; sourceTree = "<group>"; };
+		9F5C9E071A44DAB200FF4800 /* SYNGPUImageRGBToLABFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYNGPUImageRGBToLABFilter.h; sourceTree = "<group>"; };
+		9F5C9E081A44DAB200FF4800 /* SYNGPUImageRGBToLABFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYNGPUImageRGBToLABFilter.m; sourceTree = "<group>"; };
+		9F5C9E0A1A44E0DC00FF4800 /* SYNGPUImageLABToRGBFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYNGPUImageLABToRGBFilter.h; sourceTree = "<group>"; };
+		9F5C9E0B1A44E0DC00FF4800 /* SYNGPUImageLABToRGBFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYNGPUImageLABToRGBFilter.m; sourceTree = "<group>"; };
 		BB7B42101A4383FB0061FA46 /* SYNInkwell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SYNInkwell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB7B42141A4383FB0061FA46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB7B42151A4383FB0061FA46 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -84,7 +92,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F5C9E031A44C22900FF4800 /* ImageIO.framework in Frameworks */,
 				4D39E80FD7827DE26925CD57 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -176,10 +183,16 @@
 			children = (
 				BB9048731A43879000B7625A /* SYNGPUImageEdgeTangentFlowFilter.h */,
 				BB9048741A43879000B7625A /* SYNGPUImageEdgeTangentFlowFilter.m */,
+				9F5C9E041A44D45400FF4800 /* SYNGPUImageFlowBilateralFilter.h */,
+				9F5C9E051A44D45400FF4800 /* SYNGPUImageFlowBilateralFilter.m */,
 				BB9048751A43879000B7625A /* SYNGPUImageFlowDifferenceOfGaussiansFilter0.h */,
 				BB9048761A43879000B7625A /* SYNGPUImageFlowDifferenceOfGaussiansFilter0.m */,
 				BB9048771A43879000B7625A /* SYNGPUImageFlowDifferenceOfGaussiansFilter1.h */,
 				BB9048781A43879000B7625A /* SYNGPUImageFlowDifferenceOfGaussiansFilter1.m */,
+				9F5C9E0A1A44E0DC00FF4800 /* SYNGPUImageLABToRGBFilter.h */,
+				9F5C9E0B1A44E0DC00FF4800 /* SYNGPUImageLABToRGBFilter.m */,
+				9F5C9E071A44DAB200FF4800 /* SYNGPUImageRGBToLABFilter.h */,
+				9F5C9E081A44DAB200FF4800 /* SYNGPUImageRGBToLABFilter.m */,
 				BB9048791A43879000B7625A /* SYNGPUImageStructureTensorFilter.h */,
 				BB90487A1A43879000B7625A /* SYNGPUImageStructureTensorFilter.m */,
 				BB90487B1A43879000B7625A /* SYNInkwellFilter.h */,
@@ -356,14 +369,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F5C9E091A44DAB200FF4800 /* SYNGPUImageRGBToLABFilter.m in Sources */,
 				BB90487F1A43879000B7625A /* SYNGPUImageFlowDifferenceOfGaussiansFilter1.m in Sources */,
 				BB7B421C1A4383FB0061FA46 /* ViewController.m in Sources */,
 				BB90487E1A43879000B7625A /* SYNGPUImageFlowDifferenceOfGaussiansFilter0.m in Sources */,
+				9F5C9E0C1A44E0DC00FF4800 /* SYNGPUImageLABToRGBFilter.m in Sources */,
 				BB9048811A43879000B7625A /* SYNInkwellFilter.m in Sources */,
 				BB7B42191A4383FB0061FA46 /* AppDelegate.m in Sources */,
 				BB90487D1A43879000B7625A /* SYNGPUImageEdgeTangentFlowFilter.m in Sources */,
 				BB7B42161A4383FB0061FA46 /* main.m in Sources */,
 				BB9048801A43879000B7625A /* SYNGPUImageStructureTensorFilter.m in Sources */,
+				9F5C9E061A44D45400FF4800 /* SYNGPUImageFlowBilateralFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
