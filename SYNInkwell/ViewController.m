@@ -9,11 +9,6 @@
 #import "ViewController.h"
 #import "SYNInkwellFilter.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-#import <ImageIO/CGImageProperties.h>
-#import <ImageIO/ImageIO.h>
-#import <CoreImage/CoreImage.h>
-#import <CoreImage/CIImage.h>
-#import <QuartzCore/QuartzCore.h>
 
 @interface ViewController ()
 
@@ -268,16 +263,6 @@
     UIImage *normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    //
-    CIImage* ciImage = [CIImage.alloc initWithCGImage:normalizedImage.CGImage];
-    NSArray *adjustments = [ciImage autoAdjustmentFiltersWithOptions:@{}];
-    for (CIFilter *filter in adjustments) {
-        [filter setValue:ciImage forKey:kCIInputImageKey];
-        ciImage = filter.outputImage;
-    }
-    
-    CIContext *context = [CIContext contextWithOptions:nil];
-    normalizedImage = [UIImage imageWithCGImage:[context createCGImage:ciImage fromRect:ciImage.extent]];
     return normalizedImage;
 }
 
