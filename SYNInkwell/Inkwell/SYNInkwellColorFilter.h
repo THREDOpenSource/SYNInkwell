@@ -1,15 +1,15 @@
 //
-//  SYNInkwellFilter.h
-//  Thred
+//  SYNInkwellColorFilter.h
+//  SYNInkwell
 //
-//  Created by John Hurliman on 12/17/14.
+//  Created by John Hurliman on 12/20/14.
 //  Copyright (c) 2014 Syntertainment. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <GPUImage.h>
 
-@interface SYNInkwellFilter : GPUImageFilterGroup
+@interface SYNInkwellColorFilter : GPUImageFilterGroup
 
 - (id)initWithImageSize:(CGSize)imageSize;
 
@@ -24,8 +24,6 @@
 - (void)setSigmaBFD:(CGFloat)sigmaBFD;
 - (void)setSigmaBFR:(CGFloat)sigmaBFR;
 - (void)setBfeNumPasses:(int)numPasses;
-
-
-+ (GPUTextureOptions)twoChannelFloatTexture;
+- (void)setBfaNumPasses:(int)numPasses;
 
 @end

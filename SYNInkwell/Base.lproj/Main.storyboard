@@ -192,7 +192,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="fG8-la-T0F">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="fG8-la-T0F">
                                         <rect key="frame" x="124" y="10" width="432" height="31"/>
                                         <connections>
                                             <action selector="sigmaESliderContinuousAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="jkf-W0-r4m"/>
@@ -216,13 +216,13 @@
                                             <action selector="tauSliderContinuousAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="7jT-n8-DkN"/>
                                         </connections>
                                     </slider>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="-5" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="VRJ-UM-aj1">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="-10" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="VRJ-UM-aj1">
                                         <rect key="frame" x="124" y="237" width="432" height="31"/>
                                         <connections>
                                             <action selector="epsilonSliderContinuousAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="fqu-Qf-6W3"/>
                                         </connections>
                                     </slider>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="0.0" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="hpv-Uf-bSK">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.050000000000000003" minValue="0.0" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="hpv-Uf-bSK">
                                         <rect key="frame" x="124" y="199" width="432" height="31"/>
                                         <connections>
                                             <action selector="phiSliderContinuousAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="EGi-b0-09K"/>

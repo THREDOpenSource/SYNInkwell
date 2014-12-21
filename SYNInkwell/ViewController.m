@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "SYNInkwellFilter.h"
+#import "SYNPencilSketchFilter.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 @interface ViewController ()
@@ -47,6 +48,11 @@
     GPUImagePicture *sourceImage;
     GPUImageHistogramEqualizationFilter *equalization;
     SYNInkwellFilter *inkwell;
+    SYNPencilSketchFilter *pencilSketch;
+    GPUImagePicture *textureLight;
+    GPUImagePicture *textureDark;
+    GPUImagePicture *paper;
+    GPUImageMultiplyBlendFilter *paperBlend;
 }
 
 - (void)viewDidLoad {
@@ -62,12 +68,29 @@
     
     equalization = [GPUImageHistogramEqualizationFilter.alloc initWithHistogramType:kGPUImageHistogramLuminance];
     
+    UIImage *imageLight = [UIImage imageNamed:@"pencil-shading-02.jpg"];
+    UIImage *imageDark = [UIImage imageNamed:@"pencil-shading-01.jpg"];
+    UIImage *imagePaper = [UIImage imageNamed:@"paper-01.jpg"];
+    textureLight = [GPUImagePicture.alloc initWithImage:imageLight];
+    textureDark = [GPUImagePicture.alloc initWithImage:imageDark];
+    paper = [GPUImagePicture.alloc initWithImage:imagePaper];
+    
+    paperBlend = GPUImageMultiplyBlendFilter.new;
+    
     inkwell = [SYNInkwellFilter.alloc initWithImageSize:image.size];
+    pencilSketch = [SYNPencilSketchFilter.alloc initWithImageSize:image.size
+                                                     lightTexture:textureLight
+                                                      darkTexture:textureDark];
     
     [sourceImage addTarget:saturation];
     [saturation addTarget:equalization];
-    [equalization addTarget:inkwell];
-    [inkwell addTarget:_photoImageView];
+//    [equalization addTarget:inkwell];
+//    [inkwell addTarget:_photoImageView];
+    
+    [equalization addTarget:pencilSketch];
+    [pencilSketch addTarget:paperBlend atTextureLocation:0];
+    [paper addTarget:paperBlend atTextureLocation:1];
+    [paperBlend addTarget:_photoImageView];
     
     [self resetButtonAction:nil];
 }
@@ -75,7 +98,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [sourceImage processImage];
+    [self render];
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -85,51 +108,58 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    [sourceImage processImage];
+    [self render];
 }
 
 
 - (IBAction)sigmaESliderContinuousAction:(id)sender {
     _sigmaEValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaESlider.value];
     inkwell.sigmaE = _sigmaESlider.value;
-    [sourceImage processImage];
+    pencilSketch.sigmaE = _sigmaESlider.value;
+    [self render];
 }
 
 - (IBAction)sigmaRSliderContinuousAction:(id)sender {
     _sigmaRValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaRSlider.value];
     inkwell.sigmaR = _sigmaRSlider.value;
-    [sourceImage processImage];
+    pencilSketch.sigmaR = _sigmaRSlider.value;
+    [self render];
 }
 
 - (IBAction)sigmaSSTSliderContinuousAction:(id)sender {
     _sigmaSSTValueLabel.text = [NSString stringWithFormat:@"%d", (int)_sigmaSSTSlider.value];
     inkwell.sigmaSST = _sigmaSSTSlider.value;
-    [sourceImage processImage];
+    pencilSketch.sigmaSST = _sigmaSSTSlider.value;
+    [self render];
 }
 
 - (IBAction)sigmaMSliderContinuousAction:(id)sender {
     _sigmaMValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaMSlider.value];
     inkwell.sigmaM = _sigmaMSlider.value;
-    [sourceImage processImage];
+    pencilSketch.sigmaM = _sigmaMSlider.value;
+    [self render];
 }
 
 // NOTE: Tau is actually P now
 - (IBAction)tauSliderContinuousAction:(id)sender {
     _tauValueLabel.text = [NSString stringWithFormat:@"%0.2f", _tauSlider.value];
     inkwell.p = _tauSlider.value;
-    [sourceImage processImage];
+    pencilSketch.p = _tauSlider.value;
+    [self render];
 }
 
 - (IBAction)phiSliderContinuousAction:(id)sender {
     _phiValueLabel.text = [NSString stringWithFormat:@"%0.2f", _phiSlider.value];
     inkwell.phi = _phiSlider.value;
-    [sourceImage processImage];
+    pencilSketch.phi = _phiSlider.value;
+    [self render];
 }
 
 - (IBAction)epsilonSliderContinuousAction:(id)sender {
     _epsilonValueLabel.text = [NSString stringWithFormat:@"%0.2f", _epsilonSlider.value];
     inkwell.epsilon = _epsilonSlider.value;
-    [sourceImage processImage];
+    pencilSketch.epsilonX = _epsilonSlider.value;
+    [self render];
 }
 
 
@@ -138,13 +168,21 @@
 }
 
 - (IBAction)resetButtonAction:(id)sender {
-    inkwell.sigmaE = _sigmaESlider.value = 1.39;
-    inkwell.sigmaR = _sigmaRSlider.value = 2.87;
-    inkwell.sigmaSST = _sigmaSSTSlider.value = 2.5;
-    inkwell.sigmaM = _sigmaMSlider.value = 3.36;
-    inkwell.p = _tauSlider.value = 39.0;
-    inkwell.phi = _phiSlider.value = 0.17;
-    inkwell.epsilon = _epsilonSlider.value = 0.15;
+//    pencilSketch.sigmaE = inkwell.sigmaE = _sigmaESlider.value = 1.39;
+//    pencilSketch.sigmaR = inkwell.sigmaR = _sigmaRSlider.value = 2.87;
+//    pencilSketch.sigmaSST = inkwell.sigmaSST = _sigmaSSTSlider.value = 2.5;
+//    pencilSketch.sigmaM = inkwell.sigmaM = _sigmaMSlider.value = 3.36;
+//    pencilSketch.p = inkwell.p = _tauSlider.value = 39.0;
+//    pencilSketch.phi = inkwell.phi = _phiSlider.value = 0.17;
+//    pencilSketch.epsilonX = inkwell.epsilon = _epsilonSlider.value = 0.15;
+    
+    pencilSketch.sigmaE = inkwell.sigmaE = _sigmaESlider.value = 1.2;
+    pencilSketch.sigmaR = inkwell.sigmaR = _sigmaRSlider.value = 3.5;
+    pencilSketch.sigmaSST = inkwell.sigmaSST = _sigmaSSTSlider.value = 0.5;
+    pencilSketch.sigmaM = inkwell.sigmaM = _sigmaMSlider.value = 3.0;
+    pencilSketch.p = inkwell.p = _tauSlider.value = 7.0;
+    pencilSketch.phi = inkwell.phi = _phiSlider.value = 1.3;
+    pencilSketch.epsilonX = inkwell.epsilon = _epsilonSlider.value = -10.0;
     
     _sigmaEValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaESlider.value];
     _sigmaRValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaRSlider.value];
@@ -154,7 +192,15 @@
     _phiValueLabel.text = [NSString stringWithFormat:@"%0.2f", _phiSlider.value];
     _epsilonValueLabel.text = [NSString stringWithFormat:@"%0.2f", _epsilonSlider.value];
     
+    [self render];
+}
+
+- (void)render
+{
     [sourceImage processImage];
+    [textureLight processImage];
+    [textureDark processImage];
+    [paper processImage];
 }
 
 #pragma mark - Image Picker delegates
@@ -165,11 +211,12 @@
     pickedImage = [self normalizedImage:pickedImage];
     
     inkwell.imageSize = pickedImage.size;
+    pencilSketch.imageSize = pickedImage.size;
     
     sourceImage = [GPUImagePicture.alloc initWithImage:pickedImage];
     [sourceImage forceProcessingAtSizeRespectingAspectRatio:_photoImageView.frame.size];
-    [sourceImage addTarget:inkwell];
-    [sourceImage processImage];
+    [sourceImage addTarget:pencilSketch];
+    [self render];
     
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
