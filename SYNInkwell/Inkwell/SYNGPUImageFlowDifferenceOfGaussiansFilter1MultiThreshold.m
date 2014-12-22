@@ -98,9 +98,6 @@ void main()
     float y = 1.0 - ((H > epsilon_y) ? 1.0 : 1.0 + tanh(phi * (H - epsilon_y)));
     float z = 1.0 - ((H > epsilon_z) ? 1.0 : 1.0 + tanh(phi * (H - epsilon_z)));
     
-    if (x > 0.0) { y = z = 0.0; }
-    if (y > 0.0) { z = 0.0; }
-    
     gl_FragColor = vec4(x, y, z, 1.0);
 }
 );
