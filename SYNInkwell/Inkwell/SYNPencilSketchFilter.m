@@ -7,7 +7,6 @@
 //
 
 #import "SYNPencilSketchFilter.h"
-#import "SYNInkwellFilter.h"
 #import "SYNGPUImageFlowBilateralFilter.h"
 #import "SYNGPUImageRGBToLABFilter.h"
 #import "SYNGPUImageStructureTensorFilter.h"
@@ -19,7 +18,6 @@
 @implementation SYNPencilSketchFilter {
     SYNGPUImageRGBToLABFilter *rgb2lab;
     SYNGPUImageStructureTensorFilter *st;
-    GPUImageGaussianBlurFilter *sst;
     SYNGPUImageEdgeTangentFlowFilter *etf;
     SYNGPUImageFlowBilateralFilter *bfe;
     SYNGPUImageFlowDifferenceOfGaussiansFilter0 *fdog0;
@@ -39,10 +37,6 @@
         
         st = SYNGPUImageStructureTensorFilter.new;
         [self addFilter:st];
-        
-        sst = GPUImageGaussianBlurFilter.new;
-        sst.outputTextureOptions = SYNInkwellFilter.twoChannelFloatTexture;
-        [self addFilter:sst];
         
         etf = SYNGPUImageEdgeTangentFlowFilter.new;
         [self addFilter:etf];
@@ -70,9 +64,13 @@
             
             void main()
             {
+                mediump vec2 darkUV = textureCoordinate3;
+                mediump vec2 lightUV = textureCoordinate3;
+                lightUV.x = 1.0 - lightUV.x;
+                
                 mediump vec4 masks = texture2D(inputImageTexture, textureCoordinate);
-                mediump vec4 dark = texture2D(inputImageTexture2, textureCoordinate2);
-                mediump vec4 light = texture2D(inputImageTexture3, textureCoordinate3);
+                mediump vec4 dark = texture2D(inputImageTexture3, darkUV);
+                mediump vec4 light = texture2D(inputImageTexture3, lightUV);
                 
                 mediump float g = masks.x*1.0 + masks.y*(1.0-dark.x) + masks.z*(1.0-light.x);
                 gl_FragColor = vec4(vec3(1.0 - g), 1.0);
@@ -100,9 +98,7 @@
         
         self.initialFilters = @[ st, rgb2lab ];
         
-        [st addTarget:sst];
-        
-        [sst addTarget:etf];
+        [st addTarget:etf];
         
         [rgb2lab addTarget:bfe atTextureLocation:0];
         [etf addTarget:bfe atTextureLocation:1];
@@ -126,16 +122,15 @@
         
         // Default tuning
         st.imageSize = imageSize;
-        sst.blurRadiusInPixels = 0.5;
         bfe.imageSize = imageSize;
         fdog0.imageSize = imageSize;
-        fdog0.sigmaE = 1.2;
+        fdog0.sigmaE = 0.5;
         fdog0.sigmaR = 3.5;
-        fdog0.p = 7.0;
+        fdog0.p = 35.0;
         masks.imageSize = imageSize;
-        masks.sigmaM = 3.0;
-        masks.phi = 1.3;
-        masks.epsilonX = -10.0;
+        masks.sigmaM = 0.5;
+        masks.phi = 0.08;
+        masks.epsilonX = 0.0;
         masks.epsilonY = 30.0;
         masks.epsilonZ = 60.0;
         maskSmooth.blurRadiusInPixels = 2.0;
@@ -153,7 +148,6 @@
 
 - (void)setSigmaE:(CGFloat)sigmaE { fdog0.sigmaE = sigmaE; }
 - (void)setSigmaR:(CGFloat)sigmaR { fdog0.sigmaR = sigmaR; }
-- (void)setSigmaSST:(CGFloat)sigmaSST { sst.blurRadiusInPixels = sigmaSST; }
 - (void)setSigmaM:(CGFloat)sigmaM { masks.sigmaM = sigmaM; }
 - (void)setP:(CGFloat)p { fdog0.p = p; }
 - (void)setPhi:(CGFloat)phi { masks.phi = phi; }

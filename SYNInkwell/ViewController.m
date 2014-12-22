@@ -129,7 +129,7 @@
 - (IBAction)sigmaSSTSliderContinuousAction:(id)sender {
     _sigmaSSTValueLabel.text = [NSString stringWithFormat:@"%d", (int)_sigmaSSTSlider.value];
     inkwell.sigmaSST = _sigmaSSTSlider.value;
-    pencilSketch.sigmaSST = _sigmaSSTSlider.value;
+    // TODO: Pencil mask blur
     [self render];
 }
 
@@ -176,13 +176,13 @@
 //    pencilSketch.phi = inkwell.phi = _phiSlider.value = 0.17;
 //    pencilSketch.epsilonX = inkwell.epsilon = _epsilonSlider.value = 0.15;
     
-    pencilSketch.sigmaE = inkwell.sigmaE = _sigmaESlider.value = 1.2;
+    pencilSketch.sigmaE = inkwell.sigmaE = _sigmaESlider.value = 0.5;
     pencilSketch.sigmaR = inkwell.sigmaR = _sigmaRSlider.value = 3.5;
-    pencilSketch.sigmaSST = inkwell.sigmaSST = _sigmaSSTSlider.value = 0.5;
-    pencilSketch.sigmaM = inkwell.sigmaM = _sigmaMSlider.value = 3.0;
-    pencilSketch.p = inkwell.p = _tauSlider.value = 7.0;
-    pencilSketch.phi = inkwell.phi = _phiSlider.value = 1.3;
-    pencilSketch.epsilonX = inkwell.epsilon = _epsilonSlider.value = -10.0;
+    inkwell.sigmaSST = _sigmaSSTSlider.value = 0.5; // TODO: Set pencil sketch mask blur
+    pencilSketch.sigmaM = inkwell.sigmaM = _sigmaMSlider.value = 0.5;
+    pencilSketch.p = inkwell.p = _tauSlider.value = 35.0;
+    pencilSketch.phi = inkwell.phi = _phiSlider.value = 0.08;
+    pencilSketch.epsilonX = inkwell.epsilon = _epsilonSlider.value = 0.0;
     
     _sigmaEValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaESlider.value];
     _sigmaRValueLabel.text = [NSString stringWithFormat:@"%0.2f", _sigmaRSlider.value];

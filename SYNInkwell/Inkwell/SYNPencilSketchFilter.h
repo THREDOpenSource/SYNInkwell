@@ -18,7 +18,6 @@
 - (void)setImageSize:(CGSize)imageSize;
 - (void)setSigmaE:(CGFloat)sigmaE;
 - (void)setSigmaR:(CGFloat)sigmaR;
-- (void)setSigmaSST:(CGFloat)sigmaSST;
 - (void)setSigmaM:(CGFloat)sigmaM;
 - (void)setP:(CGFloat)p;
 - (void)setPhi:(CGFloat)phi;
