@@ -3,7 +3,7 @@
 //  SYNInkwell
 //
 //  Created by John Hurliman on 12/20/14.
-//  Copyright (c) 2014 Syntertainment. All rights reserved.
+//  Copyright (c) 2014 Syntertainment. Released under the MIT license.
 //
 
 #import "SYNInkwellColorFilter.h"
