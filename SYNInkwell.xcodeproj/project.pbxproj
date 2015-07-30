@@ -10,13 +10,12 @@
 		4D39E80FD7827DE26925CD57 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 369E6CC4D254F0E97A68BD76 /* libPods.a */; };
 		9F39EB0C1A46906D00E34693 /* SYNInkwellColorFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F39EB0B1A46906D00E34693 /* SYNInkwellColorFilter.m */; };
 		9F39EB0F1A46974800E34693 /* SYNGPUImageFlowDifferenceOfGaussiansFilter1MultiThreshold.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F39EB0E1A46974800E34693 /* SYNGPUImageFlowDifferenceOfGaussiansFilter1MultiThreshold.m */; };
-		9F39EB131A46A5A700E34693 /* pencil-shading-01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9F39EB101A46A5A700E34693 /* pencil-shading-01.jpg */; };
-		9F39EB141A46A5A700E34693 /* pencil-shading-02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9F39EB111A46A5A700E34693 /* pencil-shading-02.jpg */; };
 		9F39EB171A46B5F200E34693 /* paper-01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9F39EB161A46B5F200E34693 /* paper-01.jpg */; };
 		9F5C9E061A44D45400FF4800 /* SYNGPUImageFlowBilateralFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5C9E051A44D45400FF4800 /* SYNGPUImageFlowBilateralFilter.m */; };
 		9F5C9E091A44DAB200FF4800 /* SYNGPUImageRGBToLABFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5C9E081A44DAB200FF4800 /* SYNGPUImageRGBToLABFilter.m */; };
 		9F5C9E0C1A44E0DC00FF4800 /* SYNGPUImageLABToRGBFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5C9E0B1A44E0DC00FF4800 /* SYNGPUImageLABToRGBFilter.m */; };
 		9F5C9E0F1A458A4000FF4800 /* SYNPencilSketchFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5C9E0E1A458A4000FF4800 /* SYNPencilSketchFilter.m */; };
+		9F96ED9E1A607B870046F646 /* pencil-shading-01@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9F96ED9D1A607B870046F646 /* pencil-shading-01@2x.jpg */; };
 		BB7B42161A4383FB0061FA46 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B42151A4383FB0061FA46 /* main.m */; };
 		BB7B42191A4383FB0061FA46 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B42181A4383FB0061FA46 /* AppDelegate.m */; };
 		BB7B421C1A4383FB0061FA46 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B421B1A4383FB0061FA46 /* ViewController.m */; };
@@ -57,8 +56,6 @@
 		9F39EB0B1A46906D00E34693 /* SYNInkwellColorFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYNInkwellColorFilter.m; sourceTree = "<group>"; };
 		9F39EB0D1A46974800E34693 /* SYNGPUImageFlowDifferenceOfGaussiansFilter1MultiThreshold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYNGPUImageFlowDifferenceOfGaussiansFilter1MultiThreshold.h; sourceTree = "<group>"; };
 		9F39EB0E1A46974800E34693 /* SYNGPUImageFlowDifferenceOfGaussiansFilter1MultiThreshold.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYNGPUImageFlowDifferenceOfGaussiansFilter1MultiThreshold.m; sourceTree = "<group>"; };
-		9F39EB101A46A5A700E34693 /* pencil-shading-01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "pencil-shading-01.jpg"; sourceTree = "<group>"; };
-		9F39EB111A46A5A700E34693 /* pencil-shading-02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "pencil-shading-02.jpg"; sourceTree = "<group>"; };
 		9F39EB161A46B5F200E34693 /* paper-01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "paper-01.jpg"; sourceTree = "<group>"; };
 		9F5C9E021A44C22900FF4800 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		9F5C9E041A44D45400FF4800 /* SYNGPUImageFlowBilateralFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYNGPUImageFlowBilateralFilter.h; sourceTree = "<group>"; };
@@ -69,6 +66,7 @@
 		9F5C9E0B1A44E0DC00FF4800 /* SYNGPUImageLABToRGBFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYNGPUImageLABToRGBFilter.m; sourceTree = "<group>"; };
 		9F5C9E0D1A458A4000FF4800 /* SYNPencilSketchFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYNPencilSketchFilter.h; sourceTree = "<group>"; };
 		9F5C9E0E1A458A4000FF4800 /* SYNPencilSketchFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYNPencilSketchFilter.m; sourceTree = "<group>"; };
+		9F96ED9D1A607B870046F646 /* pencil-shading-01@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "pencil-shading-01@2x.jpg"; sourceTree = "<group>"; };
 		BB7B42101A4383FB0061FA46 /* SYNInkwell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SYNInkwell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB7B42141A4383FB0061FA46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB7B42151A4383FB0061FA46 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -201,11 +199,11 @@
 				9F5C9E041A44D45400FF4800 /* SYNGPUImageFlowBilateralFilter.h */,
 				9F5C9E051A44D45400FF4800 /* SYNGPUImageFlowBilateralFilter.m */,
 				BB9048751A43879000B7625A /* SYNGPUImageFlowDifferenceOfGaussiansFilter0.h */,
-				9F39EB0D1A46974800E34693 /* SYNGPUImageFlowDifferenceOfGaussiansFilter1MultiThreshold.h */,
-				9F39EB0E1A46974800E34693 /* SYNGPUImageFlowDifferenceOfGaussiansFilter1MultiThreshold.m */,
 				BB9048761A43879000B7625A /* SYNGPUImageFlowDifferenceOfGaussiansFilter0.m */,
 				BB9048771A43879000B7625A /* SYNGPUImageFlowDifferenceOfGaussiansFilter1.h */,
 				BB9048781A43879000B7625A /* SYNGPUImageFlowDifferenceOfGaussiansFilter1.m */,
+				9F39EB0D1A46974800E34693 /* SYNGPUImageFlowDifferenceOfGaussiansFilter1MultiThreshold.h */,
+				9F39EB0E1A46974800E34693 /* SYNGPUImageFlowDifferenceOfGaussiansFilter1MultiThreshold.m */,
 				9F5C9E0A1A44E0DC00FF4800 /* SYNGPUImageLABToRGBFilter.h */,
 				9F5C9E0B1A44E0DC00FF4800 /* SYNGPUImageLABToRGBFilter.m */,
 				9F5C9E071A44DAB200FF4800 /* SYNGPUImageRGBToLABFilter.h */,
@@ -226,8 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				9F39EB161A46B5F200E34693 /* paper-01.jpg */,
-				9F39EB101A46A5A700E34693 /* pencil-shading-01.jpg */,
-				9F39EB111A46A5A700E34693 /* pencil-shading-02.jpg */,
+				9F96ED9D1A607B870046F646 /* pencil-shading-01@2x.jpg */,
 				BB9FB9901A43B547005DDA71 /* InkwellIcon29.png */,
 				BB9FB9911A43B547005DDA71 /* InkwellIcon40.png */,
 				BB9FB9921A43B547005DDA71 /* InkwellIcon58.png */,
@@ -332,14 +329,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F39EB131A46A5A700E34693 /* pencil-shading-01.jpg in Resources */,
 				BB9FB9951A43B547005DDA71 /* InkwellIcon40.png in Resources */,
-				9F39EB141A46A5A700E34693 /* pencil-shading-02.jpg in Resources */,
 				BB9FB9971A43B547005DDA71 /* InkwellIcon80.png in Resources */,
 				BB9FB98C1A43B444005DDA71 /* InkwellIcon60.png in Resources */,
 				BB7B421F1A4383FB0061FA46 /* Main.storyboard in Resources */,
 				BB7EFC9C1A438EA200F3226B /* TestImage1.jpg in Resources */,
 				9F39EB171A46B5F200E34693 /* paper-01.jpg in Resources */,
+				9F96ED9E1A607B870046F646 /* pencil-shading-01@2x.jpg in Resources */,
 				BB9FB9961A43B547005DDA71 /* InkwellIcon58.png in Resources */,
 				BB7B42241A4383FB0061FA46 /* LaunchScreen.xib in Resources */,
 				BB7B42211A4383FB0061FA46 /* Images.xcassets in Resources */,

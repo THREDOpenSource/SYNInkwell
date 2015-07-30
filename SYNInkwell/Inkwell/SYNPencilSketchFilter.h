@@ -7,13 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <GPUImage.h>
+#import "GPUImage.h"
 
 @interface SYNPencilSketchFilter : GPUImageFilterGroup
 
-- (id)initWithImageSize:(CGSize)imageSize
-           lightTexture:(GPUImagePicture *)lightTexture
-            darkTexture:(GPUImagePicture *)darkTexture;
+- (id)initWithImageSize:(CGSize)imageSize pencilTexture:(GPUImagePicture *)pencilTexture;
 
 - (void)setImageSize:(CGSize)imageSize;
 - (void)setSigmaE:(CGFloat)sigmaE;

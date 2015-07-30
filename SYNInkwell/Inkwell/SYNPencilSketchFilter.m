@@ -13,7 +13,6 @@
 #import "SYNGPUImageEdgeTangentFlowFilter.h"
 #import "SYNGPUImageFlowDifferenceOfGaussiansFilter0.h"
 #import "SYNGPUImageFlowDifferenceOfGaussiansFilter1MultiThreshold.h"
-#import <GPUImageThreeInputFilter.h>
 
 @implementation SYNPencilSketchFilter {
     SYNGPUImageRGBToLABFilter *rgb2lab;
@@ -23,13 +22,12 @@
     SYNGPUImageFlowDifferenceOfGaussiansFilter0 *fdog0;
     SYNGPUImageFlowDifferenceOfGaussiansFilter1MultiThreshold *masks;
     GPUImageGaussianBlurFilter *maskSmooth;
-    GPUImageThreeInputFilter *layerBlend;
+    GPUImageTwoInputFilter *layerBlend;
     GPUImageTwoInputFilter *lineBlend;
+    GPUImageTwoInputFilter *preserveAlpha;
 }
 
-- (id)initWithImageSize:(CGSize)imageSize
-           lightTexture:(GPUImagePicture *)lightTexture
-            darkTexture:(GPUImagePicture *)darkTexture
+- (id)initWithImageSize:(CGSize)imageSize pencilTexture:(GPUImagePicture *)pencilTexture
 {
     if (self = [super init]) {
         rgb2lab = SYNGPUImageRGBToLABFilter.new;
@@ -53,33 +51,30 @@
         maskSmooth = GPUImageGaussianBlurFilter.new;
         [self addFilter:maskSmooth];
         
-        layerBlend = [GPUImageThreeInputFilter.alloc initWithFragmentShaderFromString:SHADER_STRING(
+        layerBlend = [GPUImageTwoInputFilter.alloc initWithFragmentShaderFromString:SHADER_STRING(
             varying highp vec2 textureCoordinate;
             varying highp vec2 textureCoordinate2;
-            varying highp vec2 textureCoordinate3;
             
             uniform sampler2D inputImageTexture;
             uniform sampler2D inputImageTexture2;
-            uniform sampler2D inputImageTexture3;
             
             void main()
             {
-                mediump vec2 darkUV = textureCoordinate3;
-                mediump vec2 lightUV = textureCoordinate3;
+                mediump vec2 darkUV = textureCoordinate2;
+                mediump vec2 lightUV = textureCoordinate2;
                 lightUV.x = 1.0 - lightUV.x;
                 
                 mediump vec4 masks = texture2D(inputImageTexture, textureCoordinate);
-                mediump vec4 dark = texture2D(inputImageTexture3, darkUV);
-                mediump vec4 light = texture2D(inputImageTexture3, lightUV);
+                mediump vec4 dark = texture2D(inputImageTexture2, darkUV);
+                mediump vec4 light = texture2D(inputImageTexture2, lightUV);
                 
                 mediump float g = masks.x*1.0 + masks.y*(1.0-dark.x) + masks.z*(1.0-light.x);
-                gl_FragColor = vec4(vec3(1.0 - g), 1.0);
+                gl_FragColor = vec4(vec3(1.0 - g), masks.a);
             }
         )];
         [self addFilter:layerBlend];
         
-        lineBlend = [GPUImageTwoInputFilter.alloc initWithFragmentShaderFromString:SHADER_STRING
-           (
+        lineBlend = [GPUImageTwoInputFilter.alloc initWithFragmentShaderFromString:SHADER_STRING(
             varying highp vec2 textureCoordinate;
             varying highp vec2 textureCoordinate2;
             
@@ -91,10 +86,28 @@
                 mediump vec4 tones = texture2D(inputImageTexture, textureCoordinate);
                 mediump vec4 edges = texture2D(inputImageTexture2, textureCoordinate2);
                 
-                gl_FragColor = vec4(vec3(tones.x * (1.0-edges.x)), 1.0);
+                gl_FragColor = vec4(vec3(tones.x * (1.0-edges.x)), tones.a);
             }
         )];
         [self addFilter:lineBlend];
+        
+        preserveAlpha = [GPUImageTwoInputFilter.alloc initWithFragmentShaderFromString:SHADER_STRING(
+            varying highp vec2 textureCoordinate;
+            varying highp vec2 textureCoordinate2;
+            
+            uniform sampler2D inputImageTexture;
+            uniform sampler2D inputImageTexture2;
+            
+            void main()
+            {
+                lowp vec4 c1 = texture2D(inputImageTexture, textureCoordinate);
+                lowp vec4 c2 = texture2D(inputImageTexture2, textureCoordinate2);
+                
+                gl_FragColor = vec4(c1.rgb, c2.a);
+            }
+        )];
+        [self addFilter:preserveAlpha];
+        
         
         self.initialFilters = @[ st, rgb2lab ];
         
@@ -112,13 +125,16 @@
         [masks addTarget:maskSmooth];
         
         [maskSmooth addTarget:layerBlend atTextureLocation:0];
-        [darkTexture addTarget:layerBlend atTextureLocation:1];
-        [lightTexture addTarget:layerBlend atTextureLocation:2];
+        [pencilTexture addTarget:layerBlend atTextureLocation:1];
         
         [layerBlend addTarget:lineBlend atTextureLocation:0];
         [masks addTarget:lineBlend atTextureLocation:1];
         
-        self.terminalFilter = lineBlend;
+        [lineBlend addTarget:preserveAlpha atTextureLocation:0];
+        [rgb2lab addTarget:preserveAlpha atTextureLocation:1];
+        
+        self.terminalFilter = preserveAlpha;
+        
         
         // Default tuning
         st.imageSize = imageSize;

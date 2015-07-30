@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Syntertainment. All rights reserved.
 //
 
-#import <GPUImage.h>
+#import "GPUImage.h"
 
 @interface SYNGPUImageRGBToLABFilter : GPUImageFilter
 

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <GPUImage.h>
+#import "GPUImage.h"
 
 @interface SYNGPUImageFlowDifferenceOfGaussiansFilter1 : GPUImageTwoInputFilter
 

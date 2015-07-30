@@ -15,7 +15,6 @@
 #import "SYNGPUImageFlowDifferenceOfGaussiansFilter1.h"
 #import "SYNGPUImageLABToRGBFilter.h"
 #import "SYNGPUImageRGBToLABFilter.h"
-#import <GPUImage.h>
 
 @implementation SYNInkwellColorFilter {
     SYNGPUImageRGBToLABFilter *rgb2lab;

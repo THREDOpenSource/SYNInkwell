@@ -136,7 +136,6 @@ void main()
         
         // Second pass
         [outputFramebuffer activateFramebuffer];
-        [self setUniformsForProgramAtIndex:0];
         [self setInteger:1 forUniform:_passUniform program:filterProgram];
         [self renderPassToTextureWithVertices:vertices
                            textureCoordinates:[self.class textureCoordinatesForRotation:kGPUImageNoRotation]

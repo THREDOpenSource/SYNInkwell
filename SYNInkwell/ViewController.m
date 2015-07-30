@@ -49,8 +49,7 @@
     GPUImageHistogramEqualizationFilter *equalization;
     SYNInkwellFilter *inkwell;
     SYNPencilSketchFilter *pencilSketch;
-    GPUImagePicture *textureLight;
-    GPUImagePicture *textureDark;
+    GPUImagePicture *pencilShading;
     GPUImagePicture *paper;
     GPUImageMultiplyBlendFilter *paperBlend;
 }
@@ -68,29 +67,25 @@
     
     equalization = [GPUImageHistogramEqualizationFilter.alloc initWithHistogramType:kGPUImageHistogramLuminance];
     
-    UIImage *imageLight = [UIImage imageNamed:@"pencil-shading-02.jpg"];
-    UIImage *imageDark = [UIImage imageNamed:@"pencil-shading-01.jpg"];
+    UIImage *pencilShadingImg = [UIImage imageNamed:@"pencil-shading-01.jpg"];
     UIImage *imagePaper = [UIImage imageNamed:@"paper-01.jpg"];
-    textureLight = [GPUImagePicture.alloc initWithImage:imageLight];
-    textureDark = [GPUImagePicture.alloc initWithImage:imageDark];
+    pencilShading = [GPUImagePicture.alloc initWithImage:pencilShadingImg];
     paper = [GPUImagePicture.alloc initWithImage:imagePaper];
     
     paperBlend = GPUImageMultiplyBlendFilter.new;
     
     inkwell = [SYNInkwellFilter.alloc initWithImageSize:image.size];
-    pencilSketch = [SYNPencilSketchFilter.alloc initWithImageSize:image.size
-                                                     lightTexture:textureLight
-                                                      darkTexture:textureDark];
+    pencilSketch = [SYNPencilSketchFilter.alloc initWithImageSize:image.size pencilTexture:pencilShading];
     
     [sourceImage addTarget:saturation];
     [saturation addTarget:equalization];
-//    [equalization addTarget:inkwell];
-//    [inkwell addTarget:_photoImageView];
+    [equalization addTarget:inkwell];
+    [inkwell addTarget:_photoImageView];
     
-    [equalization addTarget:pencilSketch];
-    [pencilSketch addTarget:paperBlend atTextureLocation:0];
-    [paper addTarget:paperBlend atTextureLocation:1];
-    [paperBlend addTarget:_photoImageView];
+//    [equalization addTarget:pencilSketch];
+//    [pencilSketch addTarget:paperBlend atTextureLocation:0];
+//    [paper addTarget:paperBlend atTextureLocation:1];
+//    [paperBlend addTarget:_photoImageView];
     
     [self resetButtonAction:nil];
 }
@@ -198,8 +193,7 @@
 - (void)render
 {
     [sourceImage processImage];
-    [textureLight processImage];
-    [textureDark processImage];
+    [pencilShading processImage];
     [paper processImage];
 }
 
@@ -215,7 +209,8 @@
     
     sourceImage = [GPUImagePicture.alloc initWithImage:pickedImage];
     [sourceImage forceProcessingAtSizeRespectingAspectRatio:_photoImageView.frame.size];
-    [sourceImage addTarget:pencilSketch];
+    [sourceImage addTarget:inkwell];
+    //[sourceImage addTarget:pencilSketch];
     [self render];
     
     [picker dismissViewControllerAnimated:YES completion:nil];

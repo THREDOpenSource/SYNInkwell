@@ -12,9 +12,7 @@
 #import "SYNGPUImageFlowBilateralFilter.h"
 #import "SYNGPUImageFlowDifferenceOfGaussiansFilter0.h"
 #import "SYNGPUImageFlowDifferenceOfGaussiansFilter1.h"
-#import "SYNGPUImageLABToRGBFilter.h"
 #import "SYNGPUImageRGBToLABFilter.h"
-#import <GPUImage.h>
 
 @implementation SYNInkwellFilter {
     SYNGPUImageRGBToLABFilter *rgb2lab;
