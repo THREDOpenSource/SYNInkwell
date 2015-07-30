@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "SYNInkwellFilter.h"
 #import "SYNPencilSketchFilter.h"
+#import "SYNGPUImageColorHalftoneFilter.h"
+#import "SYNGPUImageLaplaceEdgeDetectionFilter.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 @interface ViewController ()
@@ -263,6 +265,185 @@
     UIGraphicsEndImageContext();
     
     return normalizedImage;
+}
+
++ (GPUImageFilterGroup *)sundayComic:(UIImage *)inputImage
+{
+    GPUImageFilterGroup *group = GPUImageFilterGroup.alloc.init;
+    
+    // Edge-preserving blur, remove as much texture detail as possible
+    GPUImageBilateralFilter *bilateral = GPUImageBilateralFilter.alloc.init;
+    bilateral.distanceNormalizationFactor = 4.0;
+    
+    //// Background Color //////////////////////////////////////////////////////
+    
+    GPUImageHistogramEqualizationFilter *equalization = [GPUImageHistogramEqualizationFilter.alloc
+                                                         initWithHistogramType:kGPUImageHistogramLuminance];
+    equalization.downsamplingFactor = 16;
+    
+    GPUImageSaturationFilter *saturation = GPUImageSaturationFilter.alloc.init;
+    saturation.saturation = 2.0;
+    
+    [bilateral addTarget:equalization];
+    [equalization addTarget:saturation];
+    
+    //// Halftone Dots /////////////////////////////////////////////////////////
+    
+    SYNGPUImageColorHalftoneFilter *halftone = SYNGPUImageColorHalftoneFilter.alloc.init;
+    
+    GPUImageLinearBurnBlendFilter *halftoneBlend = GPUImageLinearBurnBlendFilter.alloc.init;
+    
+    [saturation addTarget:halftone];
+    [saturation addTarget:halftoneBlend atTextureLocation:0];
+    [halftone addTarget:halftoneBlend atTextureLocation:1];
+    
+    //// Ink Lines /////////////////////////////////////////////////////////////
+    
+    // TODO: Should be using .pixelSize, not .size
+    SYNInkwellFilter *inkwell = [SYNInkwellFilter.alloc initWithImageSize:inputImage.size];
+    inkwell.sigmaE = 1.0;
+    inkwell.sigmaR = 1.6;
+    inkwell.sigmaSST = 1.0;
+    inkwell.sigmaM = 2.0;
+    inkwell.p = 100.0;
+    inkwell.phi = 0.01;
+    inkwell.epsilon = 0.0;
+    inkwell.sigmaBFD = 3.0;
+    inkwell.sigmaBFR = 0.0425;
+    inkwell.bfeNumPasses = 1;
+    
+    GPUImageMedianFilter *median = GPUImageMedianFilter.alloc.init;
+    
+    GPUImageColorInvertFilter *invert = GPUImageColorInvertFilter.alloc.init;
+    
+    GPUImageSubtractBlendFilter *lineBlend = GPUImageSubtractBlendFilter.alloc.init;
+    
+    [inkwell addTarget:median];
+    [median addTarget:invert];
+    [halftoneBlend addTarget:lineBlend atTextureLocation:0];
+    [invert addTarget:lineBlend atTextureLocation:1];
+    
+    //// Paper Texture Blending ////////////////////////////////////////////////
+    
+    UIImage *paperTexture = [UIImage imageNamed:@"texture-paper01"];
+    GPUImagePicture *gpuTexture = [GPUImagePicture.alloc initWithImage:paperTexture smoothlyScaleOutput:NO];
+    [gpuTexture processImage];
+    
+    GPUImageTwoInputFilter *paperBlend = [GPUImageTwoInputFilter.alloc initWithFragmentShaderFromString:SHADER_STRING(
+      varying highp vec2 textureCoordinate;
+      varying highp vec2 textureCoordinate2;
+      
+      uniform sampler2D inputImageTexture;
+      uniform sampler2D inputImageTexture2;
+      
+      void main()
+      {
+          mediump vec4 textureColor = texture2D(inputImageTexture, textureCoordinate);
+          mediump vec4 textureColor2 = texture2D(inputImageTexture2, textureCoordinate2);
+          mediump vec4 whiteColor = vec4(1.0);
+          
+          gl_FragColor = whiteColor - (whiteColor - textureColor) / textureColor2;
+          gl_FragColor.a = textureColor2.a;
+      }
+    )];
+    
+    [gpuTexture addTarget:paperBlend atTextureLocation:0];
+    [lineBlend addTarget:paperBlend atTextureLocation:1];
+    // TODO: Should be using .pixelSize, not .size
+    [paperBlend setInputSize:inputImage.size atIndex:0];
+    
+    group.initialFilters = @[ bilateral, inkwell ];
+    group.terminalFilter = paperBlend;
+    
+    return group;
+}
+
++ (GPUImageFilterGroup *)bradstreet:(UIImage *)inputImage isSticker:(BOOL)sticker
+{
+    GPUImageFilterGroup *group = GPUImageFilterGroup.alloc.init;
+    
+    //// Preprocessing /////////////////////////////////////////////////////////
+    
+    GPUImageSaturationFilter *saturation = GPUImageSaturationFilter.alloc.init;
+    saturation.saturation = 1.3;
+    
+    GPUImageContrastFilter *contrast = GPUImageContrastFilter.alloc.init;
+    contrast.contrast = 1.1;
+    
+    GPUImageBilateralFilter *bilateral = GPUImageBilateralFilter.alloc.init;
+    bilateral.distanceNormalizationFactor = 2.0;
+    
+    //// Background ////////////////////////////////////////////////////////////
+    
+    CGFloat blurRadius = sticker ? 1.0 : 5.0;
+    
+    GPUImageGaussianBlurFilter *gaussian1 = GPUImageGaussianBlurFilter.alloc.init;
+    gaussian1.blurRadiusInPixels = blurRadius;
+    
+    GPUImageGaussianBlurFilter *gaussian2 = GPUImageGaussianBlurFilter.alloc.init;
+    gaussian2.blurRadiusInPixels = blurRadius;
+    
+    GPUImageGaussianBlurFilter *gaussian3 = GPUImageGaussianBlurFilter.alloc.init;
+    gaussian3.blurRadiusInPixels = blurRadius;
+    
+    // Darken blend with alpha preservation
+    GPUImageTwoInputFilter *background = [GPUImageTwoInputFilter.alloc initWithFragmentShaderFromString:SHADER_STRING(
+      varying highp vec2 textureCoordinate;
+      varying highp vec2 textureCoordinate2;
+      
+      uniform sampler2D inputImageTexture;
+      uniform sampler2D inputImageTexture2;
+      
+      void main() {
+          lowp vec4 base = texture2D(inputImageTexture, textureCoordinate);
+          lowp vec4 overlayer = texture2D(inputImageTexture2, textureCoordinate2);
+          
+          gl_FragColor = vec4(min(overlayer.rgb * base.a, base.rgb * overlayer.a) + overlayer.rgb * (1.0 - base.a) + base.rgb * (1.0 - overlayer.a), base.a);
+      }
+    )];
+    
+    [saturation addTarget:contrast];
+    [contrast addTarget:bilateral];
+    [bilateral addTarget:gaussian1];
+    [gaussian1 addTarget:gaussian2];
+    [gaussian2 addTarget:gaussian3];
+    [gaussian3 addTarget:background atTextureLocation:0];
+    [contrast addTarget:background atTextureLocation:1];
+    
+    //// Edges /////////////////////////////////////////////////////////////////
+    
+    GPUImageGaussianBlurPositionFilter *edgeGaussian = GPUImageGaussianBlurPositionFilter.alloc.init;
+    edgeGaussian.blurSize = 0.3;
+    
+    SYNGPUImageLaplaceEdgeDetectionFilter *edge = SYNGPUImageLaplaceEdgeDetectionFilter.alloc.init;
+    // TODO: Should be using .pixelSize, not .size
+    edge.imageSize = inputImage.size;
+    edge.threshold = 4.0/255.0;
+    edge.luminanceOffset = 0.8;
+    
+    GPUImageGaussianBlurFilter *blurredEdge = GPUImageGaussianBlurFilter.alloc.init;
+    blurredEdge.blurRadiusInPixels = 1.0;
+    
+    GPUImageUnsharpMaskFilter *unsharpEdge = GPUImageUnsharpMaskFilter.alloc.init;
+    unsharpEdge.blurRadiusInPixels = 1.0;
+    unsharpEdge.intensity = 3.0;
+    
+    [bilateral addTarget:edgeGaussian];
+    [edgeGaussian addTarget:edge];
+    [edge addTarget:blurredEdge];
+    [blurredEdge addTarget:unsharpEdge];
+    
+    //// Final Blend ///////////////////////////////////////////////////////////
+    
+    GPUImageSubtractBlendFilter *finalBlend = GPUImageSubtractBlendFilter.alloc.init;
+    
+    [background addTarget:finalBlend atTextureLocation:0];
+    [unsharpEdge addTarget:finalBlend atTextureLocation:1];
+    
+    group.initialFilters = @[ saturation ];
+    group.terminalFilter = finalBlend;
+    
+    return group;
 }
 
 @end

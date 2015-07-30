@@ -15,6 +15,8 @@
 		9F5C9E091A44DAB200FF4800 /* SYNGPUImageRGBToLABFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5C9E081A44DAB200FF4800 /* SYNGPUImageRGBToLABFilter.m */; };
 		9F5C9E0C1A44E0DC00FF4800 /* SYNGPUImageLABToRGBFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5C9E0B1A44E0DC00FF4800 /* SYNGPUImageLABToRGBFilter.m */; };
 		9F5C9E0F1A458A4000FF4800 /* SYNPencilSketchFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5C9E0E1A458A4000FF4800 /* SYNPencilSketchFilter.m */; };
+		9F78DFF41B69F7040072874A /* SYNGPUImageColorHalftoneFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F78DFF31B69F7040072874A /* SYNGPUImageColorHalftoneFilter.m */; };
+		9F78DFF71B69F7970072874A /* SYNGPUImageLaplaceEdgeDetectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F78DFF61B69F7970072874A /* SYNGPUImageLaplaceEdgeDetectionFilter.m */; };
 		9F96ED9E1A607B870046F646 /* pencil-shading-01@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9F96ED9D1A607B870046F646 /* pencil-shading-01@2x.jpg */; };
 		BB7B42161A4383FB0061FA46 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B42151A4383FB0061FA46 /* main.m */; };
 		BB7B42191A4383FB0061FA46 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7B42181A4383FB0061FA46 /* AppDelegate.m */; };
@@ -66,6 +68,10 @@
 		9F5C9E0B1A44E0DC00FF4800 /* SYNGPUImageLABToRGBFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYNGPUImageLABToRGBFilter.m; sourceTree = "<group>"; };
 		9F5C9E0D1A458A4000FF4800 /* SYNPencilSketchFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYNPencilSketchFilter.h; sourceTree = "<group>"; };
 		9F5C9E0E1A458A4000FF4800 /* SYNPencilSketchFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYNPencilSketchFilter.m; sourceTree = "<group>"; };
+		9F78DFF21B69F7040072874A /* SYNGPUImageColorHalftoneFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYNGPUImageColorHalftoneFilter.h; sourceTree = "<group>"; };
+		9F78DFF31B69F7040072874A /* SYNGPUImageColorHalftoneFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYNGPUImageColorHalftoneFilter.m; sourceTree = "<group>"; };
+		9F78DFF51B69F7970072874A /* SYNGPUImageLaplaceEdgeDetectionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYNGPUImageLaplaceEdgeDetectionFilter.h; sourceTree = "<group>"; };
+		9F78DFF61B69F7970072874A /* SYNGPUImageLaplaceEdgeDetectionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYNGPUImageLaplaceEdgeDetectionFilter.m; sourceTree = "<group>"; };
 		9F96ED9D1A607B870046F646 /* pencil-shading-01@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "pencil-shading-01@2x.jpg"; sourceTree = "<group>"; };
 		BB7B42101A4383FB0061FA46 /* SYNInkwell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SYNInkwell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB7B42141A4383FB0061FA46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -128,6 +134,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9F78DFF11B69F7040072874A /* Extra */ = {
+			isa = PBXGroup;
+			children = (
+				9F78DFF21B69F7040072874A /* SYNGPUImageColorHalftoneFilter.h */,
+				9F78DFF31B69F7040072874A /* SYNGPUImageColorHalftoneFilter.m */,
+				9F78DFF51B69F7970072874A /* SYNGPUImageLaplaceEdgeDetectionFilter.h */,
+				9F78DFF61B69F7970072874A /* SYNGPUImageLaplaceEdgeDetectionFilter.m */,
+			);
+			path = Extra;
+			sourceTree = "<group>";
+		};
 		BB7B42071A4383FB0061FA46 = {
 			isa = PBXGroup;
 			children = (
@@ -151,14 +168,15 @@
 		BB7B42121A4383FB0061FA46 /* SYNInkwell */ = {
 			isa = PBXGroup;
 			children = (
-				BB7B42171A4383FB0061FA46 /* AppDelegate.h */,
-				BB7B42181A4383FB0061FA46 /* AppDelegate.m */,
+				9F78DFF11B69F7040072874A /* Extra */,
 				BB7B42201A4383FB0061FA46 /* Images.xcassets */,
 				BB9048721A43879000B7625A /* Inkwell */,
-				BB7B42221A4383FB0061FA46 /* LaunchScreen.xib */,
-				BB7B421D1A4383FB0061FA46 /* Main.storyboard */,
 				BB9048821A4387D800B7625A /* Resources */,
 				BB7B42131A4383FB0061FA46 /* Supporting Files */,
+				BB7B42171A4383FB0061FA46 /* AppDelegate.h */,
+				BB7B42181A4383FB0061FA46 /* AppDelegate.m */,
+				BB7B42221A4383FB0061FA46 /* LaunchScreen.xib */,
+				BB7B421D1A4383FB0061FA46 /* Main.storyboard */,
 				BB7B421A1A4383FB0061FA46 /* ViewController.h */,
 				BB7B421B1A4383FB0061FA46 /* ViewController.m */,
 			);
@@ -399,6 +417,7 @@
 				9F5C9E0F1A458A4000FF4800 /* SYNPencilSketchFilter.m in Sources */,
 				BB90487E1A43879000B7625A /* SYNGPUImageFlowDifferenceOfGaussiansFilter0.m in Sources */,
 				9F5C9E0C1A44E0DC00FF4800 /* SYNGPUImageLABToRGBFilter.m in Sources */,
+				9F78DFF71B69F7970072874A /* SYNGPUImageLaplaceEdgeDetectionFilter.m in Sources */,
 				BB9048811A43879000B7625A /* SYNInkwellFilter.m in Sources */,
 				BB7B42191A4383FB0061FA46 /* AppDelegate.m in Sources */,
 				BB90487D1A43879000B7625A /* SYNGPUImageEdgeTangentFlowFilter.m in Sources */,
@@ -406,6 +425,7 @@
 				BB9048801A43879000B7625A /* SYNGPUImageStructureTensorFilter.m in Sources */,
 				9F39EB0C1A46906D00E34693 /* SYNInkwellColorFilter.m in Sources */,
 				9F5C9E061A44D45400FF4800 /* SYNGPUImageFlowBilateralFilter.m in Sources */,
+				9F78DFF41B69F7040072874A /* SYNGPUImageColorHalftoneFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
